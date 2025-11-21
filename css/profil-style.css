@@ -1,0 +1,466 @@
+/* ========================================= */
+/* GAYA HALAMAN PROFIL (AESTHETIC) */
+/* ========================================= */
+
+.profil-page {
+    background-color: #fdfafb;
+    /* Pink lembut */
+    min-height: 100vh;
+    padding: 60px 0 100px;
+}
+
+/* Alert Messages */
+.alert {
+    padding: 15px 25px;
+    border-radius: 15px;
+    margin-bottom: 30px;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.alert i {
+    margin-right: 10px;
+    font-size: 1.2em;
+}
+
+.alert-success {
+    background-color: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.alert-danger {
+    background-color: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+/* --- PROFIL CARD UTAMA --- */
+.profil-card {
+    background: #fff;
+    border-radius: 30px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.07);
+    overflow: hidden;
+    max-width: 900px;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* Banner Hiasan di Atas */
+.profil-banner {
+    height: 180px;
+    background: linear-gradient(135deg, #ffc2d1, #ff8fab);
+    /* Gradien pink */
+    position: relative;
+}
+
+/* Pola hiasan opsional pada banner */
+.profil-banner::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: url("data:image/svg+xml,%3Csvg width='100' height='20' viewBox='0 0 100 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M21.184 20c.357-.13.72-.264 1.088-.402l1.768-.661C33.64 15.347 39.647 14 50 14c10.271 0 15.362 1.222 24.629 4.928.955.383 1.869.74 2.75 1.072h6.225c-2.51-.73-5.139-1.691-8.233-2.928C65.888 13.278 60.562 12 50 12c-10.626 0-16.855 1.397-26.66 5.063l-1.767.662c-2.475.923-4.66 1.674-6.724 2.275h6.335zm0-20C13.258 2.892 8.077 4 0 4V2c5.744 0 9.951-.574 14.85-2h6.334zM77.38 0C85.239 2.966 90.502 4 100 4V2c-6.842 0-11.386-.542-16.396-2h-6.225zM0 14c8.44 0 13.718-1.21 22.272-4.402l1.768-.661C33.64 5.347 39.647 4 50 4c10.271 0 15.362 1.222 24.629 4.928C84.112 12.722 89.438 14 100 14v-2c-10.271 0-15.362-1.222-24.629-4.928C65.888 3.278 60.562 2 50 2 39.374 2 33.145 3.397 23.34 7.063l-1.767.662C13.258 11.108 8.077 12 0 12v2z' fill='%23ffffff' fill-opacity='0.1' fill-rule='evenodd'/%3E%3C/svg%3E");
+    opacity: 0.3;
+}
+
+.profil-content-wrapper {
+    display: flex;
+    padding: 0 50px 50px;
+    gap: 60px;
+    margin-top: -80px;
+    /* Menarik konten ke atas banner */
+    position: relative;
+    z-index: 2;
+}
+
+/* --- SIDEBAR (KIRI) --- */
+.profil-sidebar {
+    flex: 1;
+    max-width: 300px;
+    text-align: center;
+}
+
+.avatar-wrapper {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    border: 6px solid #fff;
+    /* Border putih tebal agar kontras dengan banner */
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    margin: 0 auto 25px;
+    background-color: #fff;
+}
+
+.avatar-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.user-name-display {
+    font-size: 1.8em;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 5px;
+}
+
+.user-role-display {
+    color: #ff8fab;
+    font-weight: 600;
+    margin-bottom: 35px;
+    display: inline-block;
+    background: #fff0f6;
+    padding: 5px 15px;
+    border-radius: 20px;
+    font-size: 0.9em;
+}
+
+/* Bagian Upload */
+.upload-section {
+    background: #f9f9f9;
+    padding: 25px;
+    border-radius: 20px;
+    border: 1px dashed #eee;
+}
+
+.upload-section h3 {
+    font-size: 1.1em;
+    margin-bottom: 20px;
+    color: #555;
+}
+
+.file-upload-label {
+    display: inline-block;
+    padding: 10px 25px;
+    background-color: #fff;
+    border: 2px solid #ff8fab;
+    color: #ff8fab;
+    border-radius: 50px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    margin-bottom: 10px;
+}
+
+.file-upload-label:hover {
+    background-color: #ff8fab;
+    color: white;
+}
+
+.file-upload-label i {
+    margin-right: 8px;
+}
+
+#file-chosen {
+    display: block;
+    font-size: 0.9em;
+    color: #888;
+    margin-bottom: 20px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 100%;
+}
+
+.btn-upload-save {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(to right, #ff8fab, #ffc2d1);
+    color: white;
+    border: none;
+    border-radius: 50px;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 5px 15px rgba(255, 143, 171, 0.3);
+}
+
+.btn-upload-save:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(255, 143, 171, 0.4);
+}
+
+.upload-hint {
+    display: block;
+    margin-top: 15px;
+    color: #aaa;
+    font-size: 0.85em;
+}
+
+/* --- INFO AKUN (KANAN) --- */
+.profil-info {
+    flex: 1.5;
+    padding-top: 100px;
+    /* Menyesuaikan posisi karena margin-top wrapper */
+}
+
+.info-header {
+    margin-bottom: 35px;
+    border-bottom: 2px solid #f5f5f5;
+    padding-bottom: 15px;
+}
+
+.info-header h3 {
+    font-size: 1.6em;
+    color: #333;
+    display: flex;
+    align-items: center;
+}
+
+.info-header h3 i {
+    color: #ff8fab;
+    margin-right: 15px;
+    background: #fff0f6;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    font-size: 0.9em;
+}
+
+.info-list {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+.info-item {
+    background: #fff;
+    padding: 20px 25px;
+    border-radius: 15px;
+    border: 1px solid #f5f5f5;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.02);
+    transition: all 0.3s ease;
+}
+
+.info-item:hover {
+    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.05);
+    transform: translateX(5px);
+    border-color: #fff0f6;
+}
+
+.info-label {
+    font-weight: 600;
+    color: #777;
+    margin-bottom: 8px;
+    display: flex;
+    align-items: center;
+    font-size: 0.95em;
+}
+
+.info-label i {
+    margin-right: 10px;
+    color: #ff8fab;
+    width: 20px;
+    text-align: center;
+}
+
+.info-value {
+    font-size: 1.2em;
+    color: #333;
+    font-weight: 500;
+    padding-left: 30px;
+    /* Men sejajarkan dengan label */
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 992px) {
+    .profil-content-wrapper {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 0 30px 40px;
+        margin-top: -60px;
+    }
+
+    .profil-sidebar {
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .profil-info {
+        width: 100%;
+        padding-top: 40px;
+    }
+
+    .info-header {
+        justify-content: center;
+    }
+
+    .info-item {
+        text-align: left;
+    }
+}
+
+/* --- DARK MODE --- */
+html.dark-mode .profil-page {
+    background-color: #121212 !important;
+}
+
+html.dark-mode .profil-card {
+    background-color: #1e1e1e !important;
+}
+
+html.dark-mode .profil-banner {
+    opacity: 0.8;
+}
+
+/* Banner sedikit lebih gelap */
+html.dark-mode .avatar-wrapper {
+    border-color: #1e1e1e !important;
+    background-color: #333 !important;
+}
+
+html.dark-mode .user-name-display {
+    color: #e0e0e0 !important;
+}
+
+html.dark-mode .user-role-display {
+    background-color: #333 !important;
+    color: #ff8fab !important;
+}
+
+html.dark-mode .upload-section {
+    background-color: #252525 !important;
+    border-color: #444 !important;
+}
+
+html.dark-mode .upload-section h3 {
+    color: #ccc !important;
+}
+
+html.dark-mode .file-upload-label {
+    background-color: #333 !important;
+    border-color: #ff8fab !important;
+    color: #ff8fab !important;
+}
+
+html.dark-mode .file-upload-label:hover {
+    background-color: #ff8fab !important;
+    color: #121212 !important;
+}
+
+html.dark-mode .info-header {
+    border-bottom-color: #333 !important;
+}
+
+html.dark-mode .info-header h3 {
+    color: #e0e0e0 !important;
+}
+
+html.dark-mode .info-header h3 i {
+    background-color: #333 !important;
+}
+
+html.dark-mode .info-item {
+    background-color: #252525 !important;
+    border-color: #333 !important;
+}
+
+html.dark-mode .info-item:hover {
+    border-color: #555 !important;
+}
+
+html.dark-mode .info-label {
+    color: #aaa !important;
+}
+
+html.dark-mode .info-value {
+    color: #e0e0e0 !important;
+}
+
+html.dark-mode .alert-success {
+    background-color: #1e4620 !important;
+    color: #d4edda !important;
+    border-color: #2e5f32 !important;
+}
+
+html.dark-mode .alert-danger {
+    background-color: #4c1d21 !important;
+    color: #f8d7da !important;
+    border-color: #6c2e34 !important;
+}
+
+/* di dalam profil-style.css */
+
+/* Ini untuk membuat input dan textarea mengambil lebar penuh */
+.info-item.editable .info-input {
+    width: 100%;
+    padding: 8px 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-family: 'Poppins', sans-serif;
+    margin-top: 5px;
+    transition: border-color 0.3s;
+}
+
+/* Sedikit beda style untuk textarea */
+.info-item.editable textarea.info-input {
+    resize: vertical;
+    /* Izinkan user mengubah ukuran tinggi */
+    min-height: 80px;
+}
+
+/* Efek focus */
+.info-item.editable .info-input:focus {
+    border-color: #ff8fab;
+    /* Warna pink utama Anda */
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(255, 136, 171, 0.2);
+}
+
+/* Mengatur layout label dan input */
+.info-item.editable {
+    /* (Mungkin perlu disesuaikan) */
+    /* Jika Anda ingin label di atas input: */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.info-item.editable .info-label {
+    /* (Mungkin perlu disesuaikan) */
+    /* Pastikan label sejajar */
+    width: 100%;
+    margin-bottom: 4px;
+}
+
+/* Tombol simpan perubahan */
+.btn-edit-profil {
+    background-color: #ff8fab;
+    color: white;
+    padding: 12px 20px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    font-size: 1rem;
+    display: inline-flex;
+    /* Agar icon dan teks sejajar */
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    /* Jarak antara icon dan teks */
+}
+
+.btn-edit-profil:hover {
+    background-color: #f07f9e;
+}
+
+.info-actions {
+    margin-top: 20px;
+    text-align: right;
+    /* Posisikan tombol di kanan */
+}
