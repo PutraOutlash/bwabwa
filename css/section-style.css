@@ -1,0 +1,408 @@
+/* ========================================= */
+/* GAYA HALAMAN VIEW_SECTION (AESTHETIC) */
+/* ========================================= */
+
+.section-page {
+    background-color: #fdfafb;
+    /* Pink lembut */
+    min-height: 100vh;
+    padding: 40px 0 80px;
+}
+
+/* --- HEADER SECTION & KONTROL --- */
+.section-header-controls {
+    background: #fff;
+    padding: 30px 40px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+    border: 1px solid #f8f8f8;
+}
+
+.section-search {
+    flex-grow: 1;
+    position: relative;
+    max-width: 450px;
+}
+
+.section-search input {
+    width: 100%;
+    padding: 14px 25px 14px 50px;
+    border: 2px solid #f0f0f0;
+    border-radius: 50px;
+    font-size: 15px;
+    transition: all 0.3s ease;
+    background-color: #fafafa;
+    font-family: 'Poppins', sans-serif;
+}
+
+.section-search input:focus {
+    border-color: #ff8fab;
+    background-color: #fff;
+    box-shadow: 0 0 0 4px rgba(255, 143, 171, 0.15);
+    outline: none;
+}
+
+.section-search i {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #bbb;
+    transition: color 0.3s;
+}
+
+.section-search input:focus+i {
+    color: #ff8fab;
+}
+
+.btn-create-topic {
+    background: linear-gradient(135deg, #ff8fab, #ffc2d1);
+    color: white;
+    padding: 12px 30px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    box-shadow: 0 4px 15px rgba(255, 143, 171, 0.3);
+}
+
+.btn-create-topic i {
+    margin-right: 10px;
+}
+
+.btn-create-topic:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(255, 143, 171, 0.5);
+}
+
+/* --- GRID LAYOUT --- */
+.section-grid-layout {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    /* Kiri lebar, Kanan sidebar */
+    gap: 35px;
+}
+
+/* --- TITLE CARD --- */
+.section-title-card {
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    overflow: hidden;
+    border: 1px solid #f8f8f8;
+    padding: 30px 40px;
+    margin-bottom: 30px;
+    position: relative;
+}
+
+/* Hiasan kecil di title card */
+.section-title-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 6px;
+    height: 100%;
+    background: #ff8fab;
+}
+
+.section-title-card h3 {
+    margin: 0 0 10px 0;
+    font-size: 1.5em;
+    font-weight: 700;
+    color: #333;
+    display: flex;
+    align-items: center;
+}
+
+.section-title-card h3 i {
+    margin-right: 15px;
+    color: #ff8fab;
+    opacity: 0.8;
+}
+
+.section-title-card p {
+    color: #777;
+    font-size: 1em;
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* --- LIST TOPIK --- */
+.topic-list {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+}
+
+.topic-item {
+    background: #fff;
+    display: flex;
+    align-items: center;
+    padding: 25px 35px;
+    border-radius: 15px;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.03);
+    border: 1px solid #f8f8f8;
+    transition: all 0.2s ease;
+}
+
+.topic-item:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.06);
+    border-color: #fff0f5;
+}
+
+.topic-icon-wrapper {
+    width: 55px;
+    height: 55px;
+    background-color: #fff5f8;
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 25px;
+    flex-shrink: 0;
+}
+
+.topic-icon {
+    font-size: 24px;
+    color: #ff8fab;
+}
+
+.topic-content {
+    flex-grow: 1;
+    padding-right: 20px;
+}
+
+.topic-title {
+    display: block;
+    font-size: 1.15em;
+    font-weight: 600;
+    color: #333;
+    margin-bottom: 8px;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.topic-title:hover {
+    color: #ff8fab;
+}
+
+.topic-meta {
+    color: #888;
+    font-size: 0.9em;
+    margin: 0;
+}
+
+.topic-meta strong {
+    color: #555;
+    font-weight: 600;
+}
+
+.topic-stats {
+    text-align: right;
+    min-width: 120px;
+    color: #999;
+    font-size: 0.9em;
+    border-left: 1px solid #f0f0f0;
+    padding-left: 25px;
+    line-height: 1.4;
+}
+
+.stat-highlight {
+    display: block;
+    color: #ff8fab;
+    font-weight: 700;
+    font-size: 1.05em;
+    margin-bottom: 5px;
+}
+
+/* Pesan Kosong / Error */
+.no-content-message,
+.error-message {
+    background: #fff;
+    padding: 40px;
+    border-radius: 15px;
+    text-align: center;
+    color: #888;
+    margin-bottom: 20px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.02);
+    border: 1px dashed #e0e0e0;
+}
+
+.error-message {
+    background: #fff2f2;
+    color: #c0392b;
+    border-color: #ffcccc;
+}
+
+/* --- SIDEBAR STATS --- */
+.section-sidebar .stats-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 35px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
+    border: 1px solid #f8f8f8;
+    position: sticky;
+    top: 100px;
+}
+
+.section-sidebar .stats-card h4 {
+    margin-top: 0;
+    margin-bottom: 30px;
+    font-size: 1.2em;
+    color: #333;
+    display: flex;
+    align-items: center;
+}
+
+.section-sidebar .stats-card h4 i {
+    margin-right: 10px;
+}
+
+.section-sidebar .stat-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px dashed #eee;
+    color: #666;
+    font-size: 1.05em;
+}
+
+.section-sidebar .stat-row:last-child {
+    border-bottom: none;
+}
+
+.section-sidebar .stat-value {
+    font-weight: 700;
+    color: #333;
+    background: #fff5f8;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.9em;
+    color: #ff8fab;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 992px) {
+    .section-grid-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .section-header-controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .section-search {
+        max-width: 100%;
+        margin-bottom: 15px;
+    }
+
+    .btn-create-topic {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .topic-item {
+        flex-wrap: wrap;
+        text-align: left;
+    }
+
+    .topic-stats {
+        width: 100%;
+        border-left: none;
+        padding-left: 0;
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px dashed #eee;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .stat-highlight {
+        margin-bottom: 0;
+    }
+
+    .section-sidebar .stats-card {
+        position: static;
+        margin-top: 20px;
+    }
+}
+
+/* ========================================= */
+/* DARK MODE ADJUSTMENTS (SOLUSI UTAMA) */
+/* ========================================= */
+
+html.dark-mode .section-page {
+    background-color: #121212 !important;
+}
+
+/* Kartu-kartu menjadi gelap */
+html.dark-mode .section-header-controls,
+html.dark-mode .section-title-card,
+html.dark-mode .topic-item,
+html.dark-mode .stats-card,
+html.dark-mode .no-content-message {
+    background-color: #1e1e1e !important;
+    border-color: #333 !important;
+    box-shadow: none !important;
+}
+
+/* Teks Judul menjadi putih/terang */
+html.dark-mode .section-title-card h3,
+html.dark-mode .topic-title,
+html.dark-mode .stats-card h4,
+html.dark-mode .stat-value {
+    color: #e0e0e0 !important;
+}
+
+/* Teks Deskripsi/Meta menjadi abu-abu */
+html.dark-mode .section-title-card p,
+html.dark-mode .topic-meta,
+html.dark-mode .stat-row,
+html.dark-mode .topic-meta strong {
+    color: #aaa !important;
+}
+
+/* Input Pencarian */
+html.dark-mode .section-search input {
+    background-color: #2a2a2a !important;
+    border-color: #444 !important;
+    color: #eee !important;
+}
+
+/* Icon wrapper */
+html.dark-mode .topic-icon-wrapper {
+    background-color: #332a2d !important;
+    /* Pink sangat gelap */
+}
+
+/* Border dan garis pemisah */
+html.dark-mode .topic-stats {
+    border-left-color: #333 !important;
+}
+
+html.dark-mode .stat-row {
+    border-bottom-color: #333 !important;
+}
+
+html.dark-mode .stat-value {
+    background-color: #332a2d !important;
+}
+
+/* Hover effect di dark mode */
+html.dark-mode .topic-item:hover {
+    background-color: #252525 !important;
+    border-color: #444 !important;
+}

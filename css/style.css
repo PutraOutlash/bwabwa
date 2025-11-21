@@ -4,7 +4,9 @@
 :root {
     /* --- Mode Terang (Default) --- */
     --primary-color: #FF69B4;
+    /* Deep Pink */
     --secondary-color: #FFC0CB;
+    /* Pink */
     --background-color: #FFFFFF;
     --section-bg: #FFF0F5;
     /* Lavender Blush */
@@ -68,7 +70,7 @@ body {
 }
 
 /* =================================
-   3. HEADER
+   3. HEADER & TOMBOL NAVIGASI
    ================================= */
 header {
     padding: 15px 0;
@@ -137,7 +139,6 @@ header nav ul li a:hover {
     margin: 0 15px;
 }
 
-/* Tombol Sign In (Pink) */
 .auth-buttons .btn-secondary,
 a.btn-secondary {
     border: none;
@@ -147,12 +148,12 @@ a.btn-secondary {
     font-weight: 600;
     font-size: 14px;
     background-color: #F7A8B8;
+    /* Pink solid yang spesifik */
     color: white;
     text-decoration: none;
     display: inline-block;
 }
 
-/* Tombol Sign Up (Abu-abu / Dark) */
 .auth-buttons .btn-primary {
     border: none;
     padding: 8px 18px;
@@ -163,6 +164,25 @@ a.btn-secondary {
     background-color: var(--btn-primary-bg);
     color: var(--btn-primary-text);
 }
+
+/* Tombol Tema (Dark Mode) */
+.theme-btn {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px 10px;
+    color: var(--text-color-light);
+    transition: color 0.3s;
+}
+
+.theme-btn:hover {
+    color: var(--text-color);
+}
+
+.theme-btn #theme-icon {
+    font-size: 1.4rem;
+}
+
 
 /* =================================
    4. BAGIAN HALAMAN (SECTION)
@@ -175,7 +195,6 @@ a.btn-secondary {
     margin: 20px;
     border-radius: 20px;
     position: relative;
-    /* Agar di belakang header */
     z-index: 1;
 }
 
@@ -247,7 +266,6 @@ a.btn-secondary {
     border: 1px solid var(--border-color);
     background-color: var(--input-bg);
     color: var(--text-color);
-    /* Agar teks input terbaca di dark mode */
 }
 
 .calculator-box button {
@@ -359,138 +377,11 @@ a.btn-secondary {
     max-width: 800px;
     margin-left: auto;
     margin-right: auto;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
 }
 
-.faq-item p {
-    font-weight: 600;
-}
-
-.arrow {
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.faq-item.open {
-    flex-direction: column;
-    align-items: stretch;
-}
-
-.faq-answer {
-    margin-top: 15px;
-    padding-top: 15px;
-    border-top: 1px solid var(--border-color);
-}
-
-.faq-answer p {
-    font-weight: 400;
-}
 
 /* =================================
-   5. FOOTER
-   ================================= */
-footer {
-    background-color: var(--footer-bg);
-    padding: 60px 20px 30px 20px;
-    margin: 40px 20px 20px 20px;
-    border-radius: 20px;
-    box-shadow: var(--shadow);
-    position: relative;
-}
-
-.footer-container {
-    max-width: 1100px;
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 2fr 1fr 2fr;
-    gap: 40px;
-}
-
-.footer-col .logo {
-    font-size: 32px;
-    font-weight: 700;
-    color: var(--text-color);
-    margin-bottom: 25px;
-}
-
-.footer-col h4 {
-    font-size: 16px;
-    font-weight: 600;
-    margin-bottom: 20px;
-    color: var(--text-color);
-}
-
-.footer-col p,
-.footer-col a {
-    color: var(--text-color-light);
-    text-decoration: none;
-    margin-bottom: 12px;
-    display: block;
-    font-size: 16px;
-}
-
-.footer-col a:hover {
-    text-decoration: underline;
-}
-
-/* Kolom kanan untuk fitur */
-.footer-features {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-end;
-    gap: 20px;
-}
-
-.language-selector {
-    background-color: #FFE3E9;
-    padding: 10px 25px;
-    border-radius: 10px;
-    font-weight: 500;
-    color: #333;
-    /* Dibuat tetap agar kontras */
-}
-
-.copyright {
-    position: absolute;
-    bottom: 20px;
-    right: 40px;
-    font-size: 12px;
-    color: var(--text-color-light);
-}
-
-/* =================================
-   6. GAYA TOMBOL TEMA (YANG BENAR)
-   ================================= */
-
-/* Ini adalah SATU-SATUNYA aturan yang Anda perlukan untuk tombol ikon */
-.theme-btn {
-    background: none;
-    /* Hapus latar belakang */
-    border: none;
-    /* Hapus border */
-    cursor: pointer;
-    padding: 5px 10px;
-    /* Beri sedikit ruang klik */
-    color: var(--text-color-light);
-    /* Ambil warna dari teks footer */
-    transition: color 0.3s;
-}
-
-.theme-btn:hover {
-    color: var(--text-color);
-    /* Jadi lebih terang saat di-hover */
-}
-
-/* Mengatur ukuran ikon matahari/bulan di dalam tombol */
-.theme-btn #theme-icon {
-    font-size: 1.4rem;
-}
-
-/* =================================
-   GAYA UNTUK FAQ (PERBAIKAN)
-   TAMBAHKAN INI DI BAWAH STYLE.CSS
+   5. GAYA FAQ (LOGIKA BUKA/TUTUP)
    ================================= */
 
 /* 1. Sembunyikan jawaban secara default */
@@ -499,6 +390,7 @@ footer {
     margin-top: 15px;
     padding-top: 15px;
     border-top: 1px solid var(--border-color);
+    font-weight: 400;
 }
 
 /* 2. Tampilkan jawaban HANYA JIKA .faq-item punya class 'open' */
@@ -513,9 +405,10 @@ footer {
     align-items: center;
     cursor: pointer;
     width: 100%;
+    font-weight: 600;
 }
 
-/* 4. Sembunyikan ikon segitiga LAMA (jika masih ada) */
+/* 4. Sembunyikan ikon segitiga LAMA */
 .arrow {
     display: none;
 }
@@ -525,7 +418,6 @@ footer {
     font-size: 1.1rem;
     color: var(--primary-color);
     transition: transform 0.3s ease;
-    /* Animasi berputar */
     margin-left: 15px;
 }
 
@@ -533,3 +425,95 @@ footer {
 .faq-item.open .faq-icon {
     transform: rotate(180deg);
 }
+
+/* ========================================== */
+/* 6. FOOTER */
+/* ========================================== */
+
+footer {
+    background-color: var(--footer-bg);
+    padding: 40px 10%;
+    border-top: 1px solid var(--border-color);
+    margin: 50px 20px 20px 20px;
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+}
+
+.footer-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 30px;
+    max-width: 1100px;
+    margin: 0 auto;
+    /* Typo 'M margin' sudah dihapus */
+}
+
+.footer-col {
+    flex: 1;
+    min-width: 200px;
+}
+
+.footer-col h4 {
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 20px;
+    color: var(--text-color);
+}
+
+.footer-col .logo {
+    font-size: 1.5rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--text-color);
+}
+
+.footer-col a,
+.footer-col p {
+    color: var(--text-color-light);
+    text-decoration: none;
+    display: block;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+}
+
+.footer-col a:hover {
+    color: var(--text-color);
+    text-decoration: underline;
+}
+
+/* Styling khusus untuk tombol bahasa */
+.language-selector {
+    display: flex;
+    gap: 8px;
+    justify-content: flex-end;
+}
+
+.language-selector button {
+    background-color: var(--secondary-color);
+    border: 1px solid var(--primary-color);
+    color: var(--text-color);
+    padding: 8px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.2s, box-shadow 0.2s;
+}
+
+.language-selector button:hover {
+    background-color: #FFB6C1;
+    /* Pink yang sedikit lebih gelap untuk hover */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+/* Styling untuk copyright */
+.copyright {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid var(--border-color);
+    color: var(--text-color-light);
+    font-size: 0.9rem;
+}
+
+/* Catatan: Blok style dark mode di bagian bawah sudah dihapus karena tidak diperlukan. */

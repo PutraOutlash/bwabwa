@@ -1,198 +1,473 @@
-/* File: ../css/forum-style.css */
+/* ========================================= */
+/* STYLE HALAMAN FORUM (FIX Z-INDEX) */
+/* ========================================= */
 
-.forum-page .container {
-    padding-top: 30px;
-    padding-bottom: 30px;
+.forum-page {
+    background-color: #fdfdfd;
+    padding: 40px 0 80px;
+    min-height: 80vh;
 }
 
-/* Kontrol di atas (search, filter, post) */
-.forum-controls {
+/* --- HEADER CONTROLS --- */
+/* FIX PENTING: Z-Index dibuat sangat tinggi agar tidak ketutupan */
+.forum-header-section {
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 15px;
-    padding: 15px;
-    background-color: var(--section-bg);
-    border-radius: 12px;
     margin-bottom: 30px;
+    background: #fff;
+    padding: 20px 30px;
+    border-radius: 20px;
+    box-shadow: 0 5px 20px rgba(0, 0, 0, 0.03);
+    flex-wrap: wrap;
+    gap: 15px;
+    border: 1px solid #fcfcfc;
+
+    position: relative;
+    z-index: 999;
+    /* Angka besar agar selalu di depan */
 }
 
 .search-forum {
     position: relative;
-    flex-grow: 1;
-    /* Ambil sisa ruang */
+    flex: 1;
+    min-width: 250px;
+}
+
+.search-forum i {
+    position: absolute;
+    left: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #bbb;
+    transition: color 0.3s;
 }
 
 .search-forum input {
     width: 100%;
-    padding: 12px 15px 12px 40px;
-    /* Jarak untuk ikon */
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
-    background-color: var(--background-color);
-    color: var(--text-color);
-    font-size: 14px;
+    padding: 14px 20px 14px 50px;
+    border: 2px solid #f0f0f0;
+    border-radius: 50px;
+    outline: none;
+    transition: all 0.3s;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    background-color: #fdfdfd;
 }
 
-.search-forum .fa-search {
-    position: absolute;
-    left: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: var(--text-color-light);
+.search-forum input:focus {
+    border-color: #ff8fab;
+    background-color: #fff;
+    box-shadow: 0 4px 15px rgba(255, 143, 171, 0.1);
 }
 
-.filter-forum {
-    padding: 12px 15px;
-    border: 1px solid var(--border-color);
-    border-radius: 8px;
-    background-color: var(--background-color);
-    cursor: pointer;
-    font-weight: 500;
+.search-forum input:focus+i {
+    color: #ff8fab;
 }
 
-.btn-post {
-    padding: 12px 20px;
-    border: none;
-    border-radius: 8px;
-    background-color: var(--primary-color);
-    color: white;
-    font-weight: 600;
-    font-size: 15px;
+.forum-controls-right {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    position: relative;
+    /* Penting untuk konteks dropdown */
+    z-index: 1000;
+    /* Lebih tinggi dari elemen sebelahnya */
+}
+
+/* --- MODERN CUSTOM DROPDOWN STYLE --- */
+.custom-dropdown-container {
+    position: relative;
+    width: 170px;
+    user-select: none;
+    font-family: 'Poppins', sans-serif;
+    z-index: 1001;
+    /* Pastikan container dropdown paling depan */
+}
+
+.dropdown-selected-value {
+    background-color: #fff;
+    border: 2px solid #f0f0f0;
+    border-radius: 50px;
+    padding: 10px 20px;
     cursor: pointer;
     display: flex;
+    justify-content: space-between;
     align-items: center;
-    gap: 8px;
+    font-size: 0.9rem;
+    color: #555;
+    font-weight: 500;
+    transition: all 0.3s ease;
 }
 
-.user-profile {
-    padding-left: 15px;
-    margin-left: auto;
-    /* Dorong ke paling kanan */
-    font-weight: 600;
-    color: var(--text-color);
+.dropdown-selected-value:hover {
+    border-color: #ff8fab;
+    color: #333;
 }
 
-/* Layout Grid Utama */
-.forum-grid {
-    display: grid;
-    grid-template-columns: 3fr 1fr;
-    /* 3 bagian untuk main, 1 untuk sidebar */
-    gap: 30px;
-    align-items: start;
+.dropdown-selected-value.active {
+    border-color: #ff8fab;
+    box-shadow: 0 0 0 3px rgba(255, 143, 171, 0.15);
 }
 
-/* Kotak Kategori */
-.forum-category {
-    background-color: var(--section-bg);
-    border-radius: 12px;
-    margin-bottom: 20px;
-    overflow: hidden;
-    /* Agar rapi */
+.dropdown-arrow {
+    margin-left: 10px;
+    font-size: 0.75rem;
+    color: #bbb;
+    transition: transform 0.3s ease;
 }
 
-.forum-category h3 {
-    font-size: 1.25rem;
-    padding: 20px;
-    border-bottom: 1px solid var(--border-color);
+.dropdown-selected-value.active .dropdown-arrow {
+    transform: rotate(180deg);
+    color: #ff8fab;
 }
 
-.forum-category ul {
+/* Daftar Pilihan (List) */
+.dropdown-options {
+    position: absolute;
+    top: 115%;
+    left: 0;
+    right: 0;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    /* Bayangan lebih kuat agar terlihat 'melayang' */
     list-style: none;
+    padding: 8px 0;
+    margin: 0;
+    z-index: 9999;
+    /* Angka sangat besar agar tidak mungkin ketutupan */
+
+    /* Animasi */
+    max-height: 0;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.3s cubic-bezier(0.165, 0.84, 0.44, 1);
+    border: 1px solid #f0f0f0;
+    overflow: hidden;
 }
 
-/* Item Thread di dalam Kategori */
-.thread-item {
+.dropdown-options.show {
+    max-height: 300px;
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-options li {
+    padding: 12px 20px;
+    cursor: pointer;
+    color: #555;
+    font-size: 0.9rem;
+    transition: all 0.2s;
+    display: block;
+}
+
+.dropdown-options li:hover {
+    background-color: #fff0f5;
+    color: #ff8fab;
+    padding-left: 25px;
+}
+
+.dropdown-options li.selected {
+    background-color: #ff8fab;
+    color: #fff;
+}
+
+.filter-select.hidden {
+    display: none !important;
+}
+
+/* --- GRID LAYOUT --- */
+.forum-grid-layout {
     display: grid;
-    /* Grid di dalam grid untuk layout kompleks */
-    grid-template-columns: auto 1fr auto;
-    /* ikon | judul/topik | replies/author */
-    grid-template-rows: auto auto;
-    gap: 5px 15px;
-    padding: 20px;
-    border-bottom: 1px solid var(--border-color);
+    grid-template-columns: 1fr 320px;
+    gap: 30px;
+
+    /* FIX: Z-Index rendah agar ada di BELAKANG header */
+    position: relative;
+    z-index: 1;
+}
+
+/* --- MAIN CARD & THREAD --- */
+.forum-category-card {
+    background: #fff;
+    border-radius: 20px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.04);
+    overflow: hidden;
+    border: 1px solid #f8f8f8;
+}
+
+.category-title-bar {
+    background: linear-gradient(to right, #ff9ab5, #ffb6c1);
+    padding: 20px 30px;
+    color: white;
+}
+
+.category-title-bar h3 {
+    margin: 0;
+    font-size: 1.3em;
+    font-weight: 600;
+    display: flex;
     align-items: center;
+    gap: 10px;
+}
+
+.thread-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.thread-item {
+    display: flex;
+    align-items: flex-start;
+    padding: 25px 30px;
+    border-bottom: 1px solid #f5f5f5;
+    transition: background 0.2s;
 }
 
 .thread-item:last-child {
     border-bottom: none;
 }
 
+.thread-item:hover {
+    background-color: #fffcfd;
+}
+
+.thread-icon-wrapper {
+    width: 50px;
+    height: 50px;
+    background-color: #fff0f5;
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+    flex-shrink: 0;
+}
+
 .thread-icon {
-    grid-row: 1 / span 2;
-    /* Ikon mengambil 2 baris */
-    font-size: 1.5rem;
-    color: var(--primary-color);
+    font-size: 24px;
+    color: #ff8fab;
+}
+
+.thread-content {
+    flex: 1;
 }
 
 .thread-title {
-    font-weight: 600;
-    font-size: 1.1rem;
-    color: var(--text-color);
-    grid-column: 2;
-    grid-row: 1;
+    font-size: 1.15em;
+    font-weight: 700;
+    color: #333;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 5px;
+    transition: color 0.3s;
 }
 
-.thread-topic {
-    grid-column: 2;
-    grid-row: 2;
-    color: var(--text-color-light);
-    font-size: 0.9rem;
+.thread-title:hover {
+    color: #ff8fab;
 }
 
-.thread-replies {
-    grid-column: 3;
-    grid-row: 1;
+.thread-description {
+    color: #777;
+    font-size: 0.95em;
+    line-height: 1.5;
+    margin: 0;
+}
+
+.thread-stats {
     text-align: right;
-    font-size: 0.9rem;
-    color: var(--text-color-light);
-}
-
-.thread-author {
-    grid-column: 3;
-    grid-row: 2;
-    text-align: right;
-    font-size: 0.9rem;
-    color: var(--text-color-light);
-}
-
-.thread-time {
-    grid-column: 2;
-    grid-row: 2;
-    margin-left: auto;
-    /* Dorong ke kanan setelah topik */
-    color: var(--text-color-light);
-    font-size: 0.9rem;
+    min-width: 120px;
     padding-left: 20px;
 }
 
-/* Sidebar */
-.forum-sidebar {
+.stat-highlight {
+    display: block;
+    font-weight: 700;
+    color: #ff8fab;
+    font-size: 1.1em;
+    margin-bottom: 5px;
+}
+
+.latest-meta {
+    font-size: 0.8em;
+    color: #999;
+    line-height: 1.4;
+}
+
+/* --- SIDEBAR STATS --- */
+.stats-card {
+    background: #fff;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.04);
+    border: 1px solid #f8f8f8;
+
+    /* Sticky Sidebar bisa konflik Z-index, kita atur */
     position: sticky;
-    top: 20px;
+    top: 100px;
+    z-index: 10;
+    /* Lebih rendah dari Header (999) */
 }
 
-.stats-box {
-    background-color: var(--section-bg);
-    border-radius: 12px;
-    padding: 20px;
+.stats-card h4 {
+    margin-top: 0;
+    margin-bottom: 25px;
+    font-size: 1.2em;
+    color: #333;
+    display: flex;
+    align-items: center;
 }
 
-.stats-box h4 {
-    font-size: 1.25rem;
-    margin-bottom: 15px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.stat-item {
+.stat-row {
     display: flex;
     justify-content: space-between;
-    font-size: 1rem;
-    color: var(--text-color-light);
+    margin-bottom: 15px;
+    padding-bottom: 15px;
+    border-bottom: 1px solid #f9f9f9;
+    color: #666;
+    font-size: 0.95em;
+}
+
+.stat-row:last-of-type {
+    border-bottom: none;
+}
+
+.stat-value {
+    font-weight: 700;
+    font-size: 1.1em;
+}
+
+.text-pink {
+    color: #ff8fab;
+}
+
+.user-stat-box {
+    margin-top: 25px;
+    padding-top: 20px;
+    border-top: 2px dashed #ffeef2;
+}
+
+.user-stat-box p {
+    color: #777;
+    font-size: 0.9em;
     margin-bottom: 8px;
 }
 
-.stat-item span:first-child {
-    font-weight: 500;
-    color: var(--text-color);
+.user-stat-box strong {
+    font-size: 1.2em;
+    color: #ff8fab;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+/* --- RESPONSIVE --- */
+@media (max-width: 992px) {
+    .forum-grid-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .stats-card {
+        position: static;
+        z-index: auto;
+    }
+}
+
+@media (max-width: 600px) {
+    .forum-header-section {
+        flex-direction: column;
+        align-items: stretch;
+        z-index: 50;
+    }
+
+    .thread-item {
+        flex-direction: column;
+        text-align: left;
+    }
+
+    .thread-icon-wrapper {
+        margin-bottom: 15px;
+    }
+
+    .thread-stats {
+        text-align: left;
+        padding-left: 0;
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px dashed #eee;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+/* --- DARK MODE --- */
+html.dark-mode .forum-page {
+    background-color: #121212 !important;
+}
+
+html.dark-mode .forum-header-section,
+html.dark-mode .forum-category-card,
+html.dark-mode .stats-card {
+    background-color: #1e1e1e !important;
+    border-color: #333 !important;
+    box-shadow: none !important;
+}
+
+html.dark-mode .search-forum input {
+    background-color: #2a2a2a !important;
+    border-color: #444 !important;
+    color: #eee !important;
+}
+
+html.dark-mode .dropdown-selected-value {
+    background-color: #2a2a2a !important;
+    border-color: #444 !important;
+    color: #eee !important;
+}
+
+html.dark-mode .dropdown-options {
+    background-color: #2a2a2a !important;
+    border-color: #444 !important;
+}
+
+html.dark-mode .dropdown-options li {
+    color: #ccc !important;
+}
+
+html.dark-mode .dropdown-options li:hover {
+    background-color: #332a2d !important;
+    color: #ff8fab !important;
+}
+
+html.dark-mode .dropdown-options li.selected {
+    background-color: #ff8fab !important;
+    color: #fff !important;
+}
+
+html.dark-mode .thread-item {
+    border-bottom-color: #333 !important;
+}
+
+html.dark-mode .thread-item:hover {
+    background-color: #252525 !important;
+}
+
+html.dark-mode .thread-title,
+html.dark-mode .stats-card h4 {
+    color: #e0e0e0 !important;
+}
+
+html.dark-mode .thread-description,
+html.dark-mode .stat-row {
+    color: #aaa !important;
+}
+
+html.dark-mode .thread-icon-wrapper {
+    background-color: #332a2d !important;
 }

@@ -1,84 +1,442 @@
-/* File: ../css/download-style.css */
-
-/* Bagian Hero (atas) */
-.hero-download {
-    background-color: var(--section-bg);
-    /* Pakai variabel */
-    padding: 60px 0;
+/* HALAMAN DOWNLOAD CSS ORI */
+.download-page {
+    background-color: #fff;
+    /* TETAPKAN ASLI */
+    overflow-x: hidden;
 }
 
-.hero-download .hero-content {
+/* --- HERO SECTION --- */
+.download-hero {
+    padding: 100px 0 80px;
+    background: linear-gradient(120deg, #fff0f5 0%, #ffffff 60%, #eefcfe 100%);
+    /* TETAPKAN ASLI */
+    position: relative;
+    min-height: 600px;
+    display: flex;
+    align-items: center;
+}
+
+.hero-content {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    gap: 30px;
+    gap: 50px;
 }
 
-.hero-download .hero-text {
-    flex-basis: 50%;
-    /* Ambil 50% lebar */
+.hero-text-side {
+    flex: 1;
+    max-width: 550px;
 }
 
-.hero-download .hero-text h1 {
-    font-size: 3.5rem;
-    /* 56px */
+.hero-text-side h1 {
+    font-size: 3.5em;
+    line-height: 1.15;
+    color: #333;
+    /* TETAPKAN ASLI */
+    margin-bottom: 20px;
+    font-weight: 800;
+}
+
+.highlight-pink {
+    color: #ff8fab;
+    position: relative;
+    display: inline-block;
+}
+
+/* Garis bawah artistik */
+.highlight-pink::after {
+    content: '';
+    position: absolute;
+    bottom: 5px;
+    left: 0;
+    width: 100%;
+    height: 12px;
+    background-color: rgba(255, 143, 171, 0.2);
+    z-index: -1;
+    border-radius: 4px;
+    transform: rotate(-2deg);
+}
+
+.hero-subtitle {
+    font-size: 1.1em;
+    line-height: 1.6;
+    color: #666;
+    /* TETAPKAN ASLI */
+    margin-bottom: 40px;
+    font-weight: 400;
+}
+
+/* --- AREA TOMBOL DOWNLOAD BARU --- */
+.download-action-area {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+/* Desain Tombol Tunggal yang Menarik */
+.btn-download-direct {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    background: linear-gradient(135deg, #ff8fab 0%, #ff6b95 100%);
+    /* TETAPKAN ASLI */
+    padding: 15px 30px;
+    border-radius: 20px;
+    text-decoration: none;
+    color: white;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    box-shadow: 0 10px 25px rgba(255, 107, 149, 0.3);
+    position: relative;
+    overflow: hidden;
+    border: 2px solid transparent;
+    min-width: 280px;
+}
+
+/* Efek Kilauan Putih */
+.btn-download-direct::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+    transition: 0.5s;
+}
+
+.btn-download-direct:hover::before {
+    left: 100%;
+}
+
+.btn-download-direct:hover {
+    transform: translateY(-5px) scale(1.02);
+    box-shadow: 0 15px 35px rgba(255, 107, 149, 0.4);
+    border-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Kotak Ikon di dalam Tombol */
+.btn-icon {
+    width: 50px;
+    height: 50px;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    backdrop-filter: blur(5px);
+}
+
+.btn-text {
+    display: flex;
+    flex-direction: column;
+}
+
+.main-text {
+    font-size: 1.3rem;
     font-weight: 700;
     line-height: 1.2;
-    color: var(--text-color);
-    /* Pakai variabel */
-    margin-bottom: 30px;
 }
 
-.btn-download-main {
-    padding: 15px 35px;
-    border: none;
-    border-radius: 30px;
-    background-color: var(--primary-color);
-    /* Pakai variabel */
-    color: white;
-    font-size: 1.1rem;
-    font-weight: 600;
-    cursor: pointer;
-    box-shadow: 0 4px 15px rgba(255, 105, 180, 0.4);
-    /* Bayangan pink */
+.sub-text {
+    font-size: 0.85rem;
+    opacity: 0.9;
+    font-weight: 400;
 }
 
-.hero-download .hero-image {
-    flex-basis: 45%;
-    /* Ambil 45% lebar */
+.compatibility-note {
+    font-size: 0.9rem;
+    color: #888;
+    /* TETAPKAN ASLI */
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
-.hero-download .hero-image img {
-    max-width: 100%;
+.compatibility-note i {
+    color: #4cd137;
+}
+
+/* --- GAMBAR MOCKUP --- */
+.hero-image-side {
+    flex: 1;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+    position: relative;
+}
+
+.hero-image-side::before {
+    content: '';
+    position: absolute;
+    width: 400px;
+    height: 400px;
+    background: radial-gradient(circle, #ffeef2 0%, transparent 70%);
+    /* TETAPKAN ASLI */
+    z-index: 0;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.app-mockup-img {
+    max-width: 85%;
     height: auto;
+    position: relative;
+    z-index: 1;
+    filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.1));
+    animation: floatPhone 6s ease-in-out infinite;
 }
 
-/* Bagian Deskripsi (bawah) */
-.description-section {
-    padding: 80px 0;
+@keyframes floatPhone {
+
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-15px);
+    }
 }
 
-.description-section .container {
+/* --- FEATURES SECTION --- */
+.features-section {
+    padding: 80px 0 100px;
+    background-color: #fff;
+    /* TETAPKAN ASLI */
+}
+
+.section-header {
+    text-align: center;
+    max-width: 700px;
+    margin: 0 auto 60px;
+}
+
+.section-header h2 {
+    font-size: 2.2em;
+    color: #333;
+    /* TETAPKAN ASLI */
+    margin-bottom: 10px;
+    font-weight: 700;
+}
+
+.section-header p {
+    font-size: 1.1em;
+    color: #888;
+    /* TETAPKAN ASLI */
+}
+
+.features-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
-    /* 2 kolom sama rata */
-    gap: 50px;
-    align-items: start;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 30px;
+    max-width: 1100px;
+    margin: 0 auto;
 }
 
-.description-box.left h2 {
-    font-size: 1.75rem;
-    /* 28px */
+.feature-card {
+    background: #fff;
+    /* TETAPKAN ASLI */
+    padding: 40px 30px;
+    border-radius: 20px;
+    text-align: center;
+    transition: all 0.3s ease;
+    border: 1px solid #f5f5f5;
+    /* TETAPKAN ASLI */
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.03);
+}
+
+.feature-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 40px rgba(255, 143, 171, 0.15);
+    border-color: #ffecf1;
+}
+
+.feature-icon {
+    width: 70px;
+    height: 70px;
+    background-color: #fff0f6;
+    /* TETAPKAN ASLI */
+    color: #ff8fab;
+    font-size: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 25px;
+    transition: all 0.3s ease;
+}
+
+.feature-card:hover .feature-icon {
+    background-color: #ff8fab;
+    color: #fff;
+    transform: scale(1.1);
+}
+
+.feature-card h3 {
+    font-size: 1.25em;
+    margin-bottom: 15px;
+    color: #333;
+    /* TETAPKAN ASLI */
     font-weight: 600;
-    line-height: 1.5;
-    color: var(--text-color);
-    /* Pakai variabel */
 }
 
-.description-box.right p {
-    font-size: 1.1rem;
-    /* 18px */
-    line-height: 1.7;
-    color: var(--text-color-light);
-    /* Pakai variabel */
+.feature-card p {
+    color: #666;
+    /* TETAPKAN ASLI */
+    font-size: 0.95em;
+    line-height: 1.6;
+}
+
+/* --- FINAL CTA SECTION --- */
+.final-cta-section {
+    padding: 60px 0 100px;
+}
+
+.cta-box {
+    background: radial-gradient(circle at center, #ff9ab3 0%, #ff8fab 100%);
+    /* TETAPKAN ASLI */
+    border-radius: 30px;
+    padding: 60px;
+    text-align: center;
+    color: white;
+    /* TETAPKAN ASLI */
+    box-shadow: 0 20px 50px rgba(255, 143, 171, 0.35);
+    position: relative;
+    overflow: hidden;
+}
+
+.cta-box::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: rgba(255, 255, 255, 0.1);
+    /* TETAPKAN ASLI */
+    transform: rotate(45deg);
+    pointer-events: none;
+}
+
+.cta-box h2 {
+    font-size: 2.2em;
+    margin-bottom: 10px;
+    color: white;
+    /* TETAPKAN ASLI */
+    position: relative;
+    z-index: 2;
+}
+
+.cta-box p {
+    font-size: 1.1em;
+    margin-bottom: 35px;
+    opacity: 0.95;
+    position: relative;
+    z-index: 2;
+}
+
+.btn-primary-large {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background-color: #fff;
+    /* TETAPKAN ASLI */
+    color: #ff8fab;
+    padding: 16px 40px;
+    border-radius: 50px;
+    font-weight: 700;
+    font-size: 1.1em;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+    position: relative;
+    z-index: 2;
+}
+
+.btn-primary-large:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+    background-color: #fdfdfd;
+    /* TETAPKAN ASLI */
+}
+
+/* ========================================= */
+/* == DARK MODE (HANYA TAMBAHAN) == */
+/* ========================================= */
+
+body.dark-mode .download-page {
+    background-color: var(--background-color);
+    /* Latar belakang utama */
+}
+
+.dark-mode .download-hero {
+    /* Ganti gradien terang ke gradien gelap/netral */
+    background: linear-gradient(120deg, var(--section-bg) 0%, var(--background-color) 60%, var(--section-bg) 100%);
+}
+
+.dark-mode .hero-text-side h1,
+.dark-mode .hero-text-side p,
+.dark-mode .section-header h2,
+.dark-mode .feature-card h3,
+.dark-mode .feature-card p {
+    color: var(--text-color);
+    /* Mengubah teks utama menjadi terang */
+}
+
+.dark-mode .hero-subtitle,
+.dark-mode .compatibility-note,
+.dark-mode .section-header p,
+.dark-mode .feature-card p {
+    color: var(--text-color-light) !important;
+    /* Mengubah teks sekunder menjadi abu-abu terang */
+}
+
+/* Perbaikan Shadow dan Background Section */
+.dark-mode .hero-image-side::before {
+    /* Mengganti glow terang di belakang HP */
+    background: radial-gradient(circle, #2a2a2a 0%, transparent 70%);
+}
+
+.dark-mode .features-section {
+    background-color: var(--background-color);
+    /* Latar belakang section */
+}
+
+.dark-mode .feature-card {
+    background: var(--section-bg);
+    border-color: var(--border-color);
+    box-shadow: none;
+    /* Hilangkan shadow terang */
+}
+
+.dark-mode .feature-card:hover {
+    /* Jaga hover tetap pink, tapi kurangi opasitas shadow */
+    box-shadow: 0 20px 40px rgba(255, 143, 171, 0.1);
+    border-color: var(--border-color);
+}
+
+.dark-mode .feature-icon {
+    /* Ganti latar belakang icon menjadi gelap */
+    background-color: #2a2a2a;
+}
+
+/* CTA Akhir - Hanya perbaiki shadow tombol */
+.dark-mode .cta-box {
+    box-shadow: 0 20px 50px rgba(255, 143, 171, 0.15);
+}
+
+.dark-mode .btn-primary-large {
+    background-color: var(--input-bg);
+    /* Latar belakang tombol putih jadi gelap */
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .btn-primary-large:hover {
+    background-color: #444;
+    /* Hover tombol lebih gelap */
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.5);
 }
