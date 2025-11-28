@@ -78,6 +78,11 @@
     /* Default: Light border */
     font-size: 0.8rem;
     color: #888;
+
+    /* MODIFIKASI UNTUK SEJAJAR */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
 .post-body {
@@ -146,6 +151,192 @@
 /* ... (Style placeholder) ... */
 
 /* =================================================== */
+/* == STYLE TOMBOL AKSI (EDIT/HAPUS) - Estetik Baru == */
+/* =================================================== */
+
+.post-actions {
+    display: flex;
+    gap: 8px;
+    /* Sedikit renggang agar tidak terlalu rapat */
+}
+
+.post-actions .btn-action {
+    font-size: 0.9em;
+    /* Ukuran teks normal */
+    padding: 5px 10px;
+    /* Padding yang nyaman */
+    text-decoration: none;
+    transition: color 0.2s ease, background-color 0.2s ease, transform 0.1s ease;
+    border: 1px solid #ccc;
+    /* Tambahkan border tipis */
+    border-radius: 6px;
+    /* Sudut membulat */
+    background: none;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    line-height: 1;
+    /* Rata tengah vertikal */
+}
+
+/* Efek Klik */
+.post-actions .btn-action:active {
+    transform: scale(0.98);
+}
+
+/* Styling untuk tombol EDIT */
+.post-actions .btn-edit {
+    color: #007bff;
+    border-color: #007bff40;
+    /* Border biru transparan */
+}
+
+.post-actions .btn-edit:hover {
+    color: #fff;
+    /* Teks putih saat hover */
+    background-color: #007bff;
+    /* Background biru penuh saat hover */
+    border-color: #007bff;
+}
+
+/* Styling untuk tombol HAPUS */
+.post-actions .btn-delete {
+    color: #dc3545;
+    border-color: #dc354540;
+    /* Border merah transparan */
+}
+
+.post-actions .btn-delete:hover {
+    color: #fff;
+    /* Teks putih saat hover */
+    background-color: #dc3545;
+    /* Background merah penuh saat hover */
+    border-color: #dc3545;
+}
+
+/* Memberi jarak pada ikon di dalam tombol */
+.post-actions .btn-action i {
+    margin-right: 5px;
+    font-size: 1em;
+}
+
+/* =================================================== */
+/* == STYLE MODAL EDIT ESTETIK (Tidak berubah) == */
+/* =================================================== */
+
+/* Modal Overlay: Menutupi seluruh layar */
+.modal-overlay {
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.7);
+    /* Lebih gelap untuk fokus */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    display: flex;
+    /* Untuk memposisikan konten di tengah */
+    justify-content: center;
+    align-items: center;
+}
+
+/* Modal Content Box: Kotak yang berisi form */
+.modal-content-box {
+    background-color: #ffffff;
+    padding: 30px;
+    width: 90%;
+    max-width: 650px;
+    border-radius: 12px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+    position: relative;
+    /* Animasi masuk */
+    transform: translateY(-50px);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+/* Active State: Tampilkan Modal */
+.modal-overlay.active {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.modal-overlay.active .modal-content-box {
+    transform: translateY(0);
+}
+
+/* Header Modal */
+.modal-content-box h3 {
+    margin-top: 0;
+    font-size: 1.5em;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+    color: #333;
+    display: flex;
+    align-items: center;
+}
+
+.modal-content-box h3 i {
+    margin-right: 10px;
+    color: #d95d7a;
+}
+
+/* Tombol Close */
+.modal-close-btn {
+    position: absolute;
+    top: 15px;
+    right: 25px;
+    color: #aaa;
+    font-size: 36px;
+    font-weight: bold;
+    cursor: pointer;
+    line-height: 1;
+    transition: color 0.2s;
+}
+
+.modal-close-btn:hover,
+.modal-close-btn:focus {
+    color: #777;
+    text-decoration: none;
+}
+
+/* Textarea di Modal */
+.modal-content-box textarea {
+    width: 100%;
+    padding: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 1em;
+    resize: vertical;
+    min-height: 180px;
+}
+
+/* Tombol Simpan (Memanfaatkan .btn-primary) */
+.modal-content-box form button[type="submit"] {
+    /* Asumsi Anda memiliki style .btn-primary yang baik. Kita override margin/padding jika perlu */
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-size: 1em;
+    font-weight: bold;
+    background-color: #ff8fab;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.modal-content-box form button[type="submit"]:hover {
+    background-color: #e66b8d;
+}
+
+
+/* =================================================== */
 /* == STYLE KHUSUS DARK MODE (PENTING) == */
 /* =================================================== */
 
@@ -161,7 +352,6 @@
     border-color: #333;
     /* Border gelap */
     box-shadow: none;
-    /* Hilangkan shadow di dark mode */
 }
 
 .dark-mode .reply-box h3,
@@ -201,6 +391,30 @@
     color: #fff;
 }
 
+/* Style Modal di Dark Mode */
+.dark-mode .modal-content-box {
+    background-color: #222;
+    /* Latar belakang modal gelap */
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.5);
+}
+
+.dark-mode .modal-content-box h3 {
+    color: #f0f0f0;
+    /* Header modal terang */
+    border-bottom-color: #444;
+}
+
+.dark-mode .modal-close-btn {
+    color: #bbb;
+}
+
+.dark-mode .modal-content-box textarea {
+    background-color: #1a1a1a;
+    border-color: #444;
+    color: #f0f0f0;
+}
+
+
 /* Warna placeholder di dark mode */
 .dark-mode .reply-box ::-webkit-input-placeholder,
 .dark-mode .reply-box :-moz-placeholder,
@@ -216,4 +430,31 @@
 .dark-mode .reply-box textarea:focus {
     border-color: #d95d7a;
     box-shadow: 0 0 8px rgba(217, 93, 122, 0.3);
+}
+
+/* Tombol aksi di Dark Mode */
+.dark-mode .post-actions .btn-edit {
+    color: #8ab4f8;
+    border-color: #8ab4f840;
+}
+
+.dark-mode .post-actions .btn-edit:hover {
+    color: #1a1a1a;
+    /* Teks gelap saat hover */
+    background-color: #8ab4f8;
+    /* Background terang saat hover */
+    border-color: #8ab4f8;
+}
+
+.dark-mode .post-actions .btn-delete {
+    color: #ff6666;
+    border-color: #ff666640;
+}
+
+.dark-mode .post-actions .btn-delete:hover {
+    color: #1a1a1a;
+    /* Teks gelap saat hover */
+    background-color: #ff6666;
+    /* Background terang saat hover */
+    border-color: #ff6666;
 }

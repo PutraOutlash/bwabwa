@@ -4,25 +4,34 @@
 
 .artikel-page {
     background-color: #fdfafb;
-    /* Pink lembut, konsisten dengan halaman lain */
     min-height: 100vh;
     padding-bottom: 80px;
 }
 
 /* --- HEADER SECTION --- */
 .artikel-header-section {
+    /* Perubahan Kunci untuk Pemusatan */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Memusatkan semua elemen anak secara horizontal */
+
     background: #fff;
     padding: 40px 50px;
     border-radius: 25px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
     margin-bottom: 50px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+
     flex-wrap: wrap;
-    gap: 30px;
+    gap: 20px;
     border: 1px solid #f8f8f8;
     background-image: linear-gradient(to right, #fff, #fff5f8);
+}
+
+.header-text {
+    width: 100%;
+    text-align: center;
+    /* Teks harus dipusatkan */
 }
 
 .header-text h1 {
@@ -44,73 +53,62 @@
 }
 
 .header-controls {
-    display: flex;
-    gap: 15px;
-    flex-wrap: wrap;
-}
-
-.search-artikel {
-    position: relative;
-    min-width: 250px;
-}
-
-.search-artikel input {
     width: 100%;
-    padding: 14px 20px 14px 45px;
+    display: flex;
+    justify-content: center;
+    /* Memusatkan tombol filter di dalam kontainer */
+    flex-wrap: wrap;
+    margin-top: 10px;
+}
+
+/* --- GAYA UNTUK FILTER KATEGORI --- */
+.filter-artikel {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    /* Pastikan tombol di dalamnya juga terpusat */
+    /* Opsional: Tambahkan margin auto sebagai fallback kuat untuk pemusatan */
+    /* margin-left: auto; 
+    margin-right: auto; */
+}
+
+.filter-artikel .filter-button {
+    padding: 10px 18px;
     border: 2px solid #f0f0f0;
     border-radius: 50px;
-    font-size: 15px;
-    transition: all 0.3s ease;
-    background-color: #fff;
-}
-
-.search-artikel input:focus {
-    border-color: #ff8fab;
-    box-shadow: 0 0 0 4px rgba(255, 143, 171, 0.15);
-    outline: none;
-}
-
-.search-artikel i {
-    position: absolute;
-    left: 18px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #bbb;
-}
-
-.custom-select {
-    padding: 14px 25px;
-    border: 2px solid #f0f0f0;
-    border-radius: 50px;
-    font-size: 15px;
+    text-decoration: none;
     color: #555;
-    cursor: pointer;
+    font-size: 0.95em;
+    font-weight: 600;
+    transition: all 0.3s;
     background-color: #fff;
-    transition: all 0.3s ease;
-    appearance: none;
-    -webkit-appearance: none;
-    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23ff8fab' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
-    background-repeat: no-repeat;
-    background-position: right 15px center;
-    background-size: 18px;
-    padding-right: 45px;
+    white-space: nowrap;
 }
 
-.custom-select:hover,
-.custom-select:focus {
+.filter-artikel .filter-button:hover {
+    background-color: #ff8fab;
+    color: white;
     border-color: #ff8fab;
-    outline: none;
 }
 
-/* --- GRID LAYOUT --- */
+.filter-artikel .filter-button.active {
+    background-color: #ff8fab;
+    color: white;
+    border-color: #ff8fab;
+    box-shadow: 0 4px 10px rgba(255, 143, 171, 0.3);
+}
+
+/* --- GRID LAYOUT (1 kolom penuh) --- */
 .artikel-grid-layout {
     display: grid;
-    grid-template-columns: 2.5fr 1fr;
+    grid-template-columns: 1fr;
     gap: 40px;
 }
 
 /* --- CARD ARTIKEL --- */
 .main-articles {
+    grid-column: 1 / -1;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 30px;
@@ -128,21 +126,29 @@
 }
 
 .article-card:hover {
-    transform: translateY(-10px);
-    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
 }
 
 .article-image {
     position: relative;
-    height: 220px;
+    padding-top: 56.25%;
+    height: auto;
     overflow: hidden;
+    z-index: 1;
+    /* <-- PENGUATAN: Pastikan gambar memiliki konteks z-index */
 }
 
 .article-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
     transition: transform 0.5s ease;
+    z-index: 1;
+    /* <-- PENGUATAN: Agar gambar selalu ada di lapisan dasarnya */
 }
 
 .article-card:hover .article-image img {
@@ -151,8 +157,8 @@
 
 .article-category {
     position: absolute;
-    top: 20px;
-    left: 20px;
+    top: 15px;
+    left: 15px;
     background: rgba(255, 143, 171, 0.9);
     color: white;
     padding: 6px 15px;
@@ -162,6 +168,8 @@
     text-transform: uppercase;
     letter-spacing: 0.5px;
     backdrop-filter: blur(5px);
+    z-index: 2;
+    /* <-- PENGUATAN: Pastikan tag kategori selalu di atas gambar */
 }
 
 .article-content {
@@ -197,6 +205,10 @@
     line-height: 1.6;
     margin-bottom: 25px;
     flex-grow: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .article-meta {
@@ -212,86 +224,6 @@
 .article-meta i {
     margin-right: 8px;
     color: #ff8fab;
-}
-
-/* --- SIDEBAR WIDGETS --- */
-.artikel-sidebar .sidebar-widget {
-    background: #fff;
-    padding: 30px;
-    border-radius: 20px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.03);
-    margin-bottom: 30px;
-    border: 1px solid #f8f8f8;
-}
-
-.sidebar-widget h3 {
-    margin-top: 0;
-    margin-bottom: 25px;
-    font-size: 1.2em;
-    color: #333;
-    display: flex;
-    align-items: center;
-}
-
-.sidebar-widget h3 i {
-    margin-right: 10px;
-}
-
-.widget-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-
-.widget-list li {
-    margin-bottom: 15px;
-    padding-bottom: 15px;
-    border-bottom: 1px solid #f9f9f9;
-}
-
-.widget-list li:last-child {
-    border-bottom: none;
-    margin-bottom: 0;
-    padding-bottom: 0;
-}
-
-.widget-list li a {
-    text-decoration: none;
-    color: #555;
-    font-weight: 600;
-    line-height: 1.5;
-    display: block;
-    transition: all 0.2s;
-}
-
-.widget-list li a:hover {
-    color: #ff8fab;
-    transform: translateX(5px);
-}
-
-/* Tag Cloud */
-.tag-cloud {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 10px;
-}
-
-.tag-item {
-    background: #fff5f8;
-    color: #ff8fab;
-    padding: 8px 15px;
-    border-radius: 20px;
-    text-decoration: none;
-    font-size: 0.9em;
-    font-weight: 500;
-    transition: all 0.2s ease;
-}
-
-.tag-item:hover {
-    background: #ff8fab;
-    color: white;
-    transform: translateY(-2px);
-    box-shadow: 0 5px 10px rgba(255, 143, 171, 0.3);
 }
 
 /* Pesan Error/Kosong */
@@ -313,9 +245,8 @@
 }
 
 /* ========================================= */
-/* DARK MODE ADJUSTMENTS (YANG LEBIH BAIK!) */
+/* DARK MODE ADJUSTMENTS */
 /* ========================================= */
-/* Gunakan !important untuk memastikan warna dark mode menang */
 
 html.dark-mode .artikel-page {
     background-color: #121212 !important;
@@ -324,44 +255,46 @@ html.dark-mode .artikel-page {
 /* Header & Cards di Dark Mode */
 html.dark-mode .artikel-header-section,
 html.dark-mode .article-card,
-html.dark-mode .sidebar-widget,
 html.dark-mode .no-articles {
     background-color: #1e1e1e !important;
     background-image: none !important;
-    /* Hapus gradien putih */
     border-color: #333 !important;
     box-shadow: none !important;
 }
 
 /* Teks Utama jadi Putih Terang */
 html.dark-mode .header-text h1,
-html.dark-mode .article-content h2 a,
-html.dark-mode .sidebar-widget h3 {
+html.dark-mode .article-content h2 a {
     color: #e0e0e0 !important;
 }
 
 /* Teks Sekunder jadi Abu Terang */
 html.dark-mode .header-text p,
-html.dark-mode .article-excerpt,
-html.dark-mode .widget-list li a {
+html.dark-mode .article-excerpt {
     color: #bbb !important;
 }
 
-/* Input & Select di Dark Mode */
-html.dark-mode .search-artikel input,
-html.dark-mode .custom-select {
+/* Filter Button di Dark Mode */
+html.dark-mode .filter-artikel .filter-button {
     background-color: #2a2a2a !important;
     border-color: #444 !important;
     color: #e0e0e0 !important;
 }
 
-html.dark-mode .search-artikel i {
-    color: #777 !important;
+html.dark-mode .filter-artikel .filter-button:hover {
+    background-color: #ff8fab !important;
+    color: #1e1e1e !important;
+    border-color: #ff8fab !important;
+}
+
+html.dark-mode .filter-artikel .filter-button.active {
+    background-color: #ff8fab !important;
+    color: #1e1e1e !important;
+    border-color: #ff8fab !important;
 }
 
 /* Garis Pemisah di Dark Mode */
-html.dark-mode .article-meta,
-html.dark-mode .widget-list li {
+html.dark-mode .article-meta {
     border-color: #333 !important;
 }
 
@@ -370,17 +303,6 @@ html.dark-mode .article-meta {
     color: #888 !important;
 }
 
-/* Tag Cloud di Dark Mode */
-html.dark-mode .tag-item {
-    background-color: #333 !important;
-    color: #ff8fab !important;
-    /* Pink tetap cerah agar kontras */
-}
-
-html.dark-mode .tag-item:hover {
-    background-color: #ff8fab !important;
-    color: #121212 !important;
-}
 
 /* --- RESPONSIVE --- */
 @media (max-width: 992px) {
@@ -389,16 +311,20 @@ html.dark-mode .tag-item:hover {
     }
 
     .artikel-header-section {
-        flex-direction: column;
-        align-items: stretch;
+        padding: 30px;
+    }
+
+    .header-text {
         text-align: center;
     }
 
     .header-controls {
         justify-content: center;
+        width: 100%;
+        margin-top: 15px;
     }
 
-    .search-artikel {
-        width: 100%;
+    .filter-artikel {
+        justify-content: center;
     }
 }

@@ -1,9 +1,14 @@
 <?php
-// DELOK FORUM IKI 
+// File: view_section.php
+
+// 1. KONEKSI DATABASE
 try {
-    include_once __DIR__ . '/db.php';
+    // Pastikan db.php ada di folder yang sama (include 'db.php')
+    include_once 'db.php';
+    $pdo_available = isset($pdo); // Cek ketersediaan $pdo
 } catch (Exception $e) {
     // Tangani jika koneksi DB gagal
+    $pdo_available = false;
 }
 
 // 2. Ambil dan validasi ID Section dari URL
@@ -16,7 +21,8 @@ $section_id = $_GET['id'];
 // 3. Ambil informasi Section dari database
 $section_name = "Kategori Tidak Ditemukan";
 $section_description = "";
-if (isset($pdo)) {
+
+if ($pdo_available) {
     try {
         $stmt_section = $pdo->prepare("SELECT name, description FROM forum_sections WHERE id = ?");
         $stmt_section->execute([$section_id]);
@@ -47,7 +53,6 @@ include 'header.php';
 <main class="section-page">
     <div class="container">
 
-        <!-- HEADER SECTION & KONTROL -->
         <div class="section-header-controls animate-on-scroll">
             <div class="section-search">
                 <i class="fas fa-search"></i>
@@ -59,7 +64,6 @@ include 'header.php';
         </div>
 
         <div class="section-grid-layout">
-            <!-- KOLOM KIRI: DAFTAR TOPIK -->
             <div class="section-main">
                 <div class="section-title-card animate-on-scroll">
                     <h3><i class="fas fa-folder-open"></i> Topik di: <?php echo $section_name; ?></h3>
@@ -74,7 +78,7 @@ include 'header.php';
                     // KODE DINAMIS UNTUK MENAMPILKAN TOPIK
                     // =================================================
                     try {
-                        if (!isset($pdo)) {
+                        if (!$pdo_available) {
                             throw new Exception("Koneksi database terputus atau file db.php bermasalah.");
                         }
 
@@ -84,7 +88,7 @@ include 'header.php';
                                             u.username AS author_username,
                                             (SELECT COUNT(*) FROM forum_posts WHERE topic_id = t.id) AS post_count
                                         FROM forum_topics t
-                                        JOIN users u ON t.user_id = u.id
+                                        JOIN users u ON t.user_id = u.id_users  -- KOREKSI UTAMA: Menggunakan id_users
                                         WHERE t.section_id = ?
                                         ORDER BY t.created_at DESC"; // Topik terbaru di atas
 
@@ -121,25 +125,31 @@ include 'header.php';
                     } catch (Exception $e) {
                         // TAMPILKAN PESAN ERROR JIKA ADA MASALAH DENGAN QUERY DB
                         echo '<li class="error-message animate-on-scroll">
-                                <strong>Error:</strong> ' . $e->getMessage() . '
-                              </li>';
+                                    <strong>Error:</strong> ' . htmlspecialchars($e->getMessage()) . '
+                                  </li>';
                     }
                     ?>
                 </ul>
             </div>
 
-            <!-- KOLOM KANAN: STATISTIK -->
             <aside class="section-sidebar">
                 <div class="stats-card animate-on-scroll">
                     <h4><i class="fas fa-chart-line" style="color: #ff8fab; margin-right: 10px;"></i> Statistik Section</h4>
                     <?php
                     try {
-                        if (isset($pdo)) {
+                        if ($pdo_available) {
+                            // Hitung Total Topik di Section
                             $topic_count_sec = $pdo->prepare("SELECT COUNT(*) FROM forum_topics WHERE section_id = ?");
                             $topic_count_sec->execute([$section_id]);
                             $topic_c = $topic_count_sec->fetchColumn();
 
-                            $post_count_sec = $pdo->prepare("SELECT COUNT(fp.id) FROM forum_posts fp JOIN forum_topics ft ON fp.topic_id = ft.id WHERE ft.section_id = ?");
+                            // Hitung Total Postingan di Section
+                            $post_count_sec = $pdo->prepare("
+                                SELECT COUNT(fp.id) 
+                                FROM forum_posts fp 
+                                JOIN forum_topics ft ON fp.topic_id = ft.id 
+                                WHERE ft.section_id = ?
+                            ");
                             $post_count_sec->execute([$section_id]);
                             $post_c = $post_count_sec->fetchColumn();
                         } else {
@@ -159,7 +169,6 @@ include 'header.php';
                     </div>
                 </div>
 
-                <!-- Bisa ditambahkan widget lain di sini -->
             </aside>
         </div>
     </div>

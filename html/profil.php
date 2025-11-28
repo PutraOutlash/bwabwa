@@ -11,7 +11,8 @@ $pageCSS = ["../css/profil-style.css"];
 include 'header.php';
 
 // 2. Koneksi Database
-require_once __DIR__ . '/db.php';
+// Menggunakan require_once 'db.php'; karena file ini di folder yang sama
+require_once 'db.php';
 
 // 3. Keamanan & Variabel
 if (!isset($_SESSION['user_id'])) {
@@ -52,11 +53,12 @@ if (isset($_POST['upload_avatar'])) {
             if (move_uploaded_file($file_tmp, $destination)) {
                 $db_avatar_path = '../uploads/avatars/' . $new_file_name;
                 try {
-                    $stmt = $pdo->prepare("UPDATE users SET avatar_url = ? WHERE id = ?");
+                    // KOREKSI 1: Mengubah WHERE id = ? menjadi WHERE id_users = ?
+                    $stmt = $pdo->prepare("UPDATE users SET avatar_url = ? WHERE id_users = ?");
                     $stmt->execute([$db_avatar_path, $user_id]);
                     $pesan_sukses = "Foto profil berhasil diperbarui!";
                 } catch (Exception $e) {
-                    $pesan_error = "Gagal menyimpan ke database.";
+                    $pesan_error = "Gagal menyimpan ke database. Detail: " . $e->getMessage();
                     unlink($destination);
                 }
             } else {
@@ -72,23 +74,27 @@ if (isset($_POST['upload_avatar'])) {
 $user = [];
 $avatar_display = 'path/to/default_avatar.png';
 
+// KOREKSI 2: Mengubah SELECT id menjadi SELECT id_users (dan WHERE id menjadi id_users)
 $stmt = $pdo->prepare("
-    SELECT id, username, email, created_at, avatar_url
+    SELECT id_users, username, email, created_at, avatar_url
     FROM users 
-    WHERE id = ?
+    WHERE id_users = ?
 ");
 $stmt->execute([$user_id]);
 $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
 if (!$user) {
-    echo "Error: Data user tidak ditemukan.";
+    echo "Error: Data user tidak ditemukan. Silakan login kembali.";
+    // Mungkin perlu ditambahkan logout di sini
     exit;
 }
 
 // Cek avatar
+// $user['avatar_url'] seharusnya berisi path avatar
 if (!empty($user['avatar_url']) && file_exists($user['avatar_url'])) {
     $avatar_display = $user['avatar_url'];
 } elseif (!empty($user['avatar_url'])) {
+    // Jika path ada di DB tapi file tidak ada di server, tetap tampilkan path
     $avatar_display = $user['avatar_url'];
 }
 ?>

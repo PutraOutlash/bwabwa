@@ -1,5 +1,5 @@
 <?php
-// IKI PISAN
+session_start(); // Pastikan session dimulai untuk mengambil $_SESSION['user_id']
 include 'db.php'; // Panggil koneksi DB secara manual
 
 // 1. Ambil dan validasi ID Topik dari URL
@@ -10,9 +10,15 @@ if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 $topic_id = $_GET['id'];
 
 // 2. Ambil informasi nama topik dari database
-$stmt_topic = $pdo->prepare("SELECT title FROM forum_topics WHERE id = ?");
-$stmt_topic->execute([$topic_id]);
-$topic = $stmt_topic->fetch(PDO::FETCH_ASSOC);
+try {
+    $stmt_topic = $pdo->prepare("SELECT title FROM forum_topics WHERE id = ?");
+    $stmt_topic->execute([$topic_id]);
+    $topic = $stmt_topic->fetch(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {
+    // Tangani error database saat query awal
+    die("Error Database Awal: " . $e->getMessage());
+}
+
 
 if (!$topic) {
     // Jika ID topik tidak ditemukan, kirim ke forum utama
@@ -27,56 +33,47 @@ $pageCSS = ["../css/forum-style.css", "../css/topic-style.css"]; // Pastikan fil
 
 // 4. Panggil "Kepala" Halaman
 include 'header.php';
+
+// =================================================================
+// BLOK PESAN STATUS DARI MODIFIKASI SEBELUMNYA
+// =================================================================
+$message = '';
+$message_type = '';
+
+if (isset($_GET['status'])) {
+    if ($_GET['status'] == 'edited') {
+        $message = "✅ Postingan berhasil diperbarui.";
+        $message_type = 'success';
+    } elseif ($_GET['status'] == 'deleted') {
+        $message = "🗑️ Postingan berhasil dihapus.";
+        $message_type = 'success';
+    }
+} elseif (isset($_GET['error'])) {
+    if ($_GET['error'] == 'unauthorized' || $_GET['error'] == 'unauthorized_edit') {
+        $message = "❌ Gagal: Anda tidak memiliki izin untuk melakukan aksi ini.";
+        $message_type = 'error';
+    } elseif ($_GET['error'] == 'content_empty') {
+        $message = "⚠️ Gagal: Isi postingan tidak boleh kosong.";
+        $message_type = 'error';
+    } elseif ($_GET['error'] == 'db_error' || $_GET['error'] == 'db_update_error') {
+        $message = "❌ Terjadi kesalahan pada database saat memproses permintaan Anda.";
+        $message_type = 'error';
+    }
+}
+
+// Tampilkan pesan jika ada
+if (!empty($message)) {
+    echo '<div class="container">';
+    // Tambahkan ID 'auto-dismiss-alert' pada div notifikasi
+    echo '<div id="auto-dismiss-alert" class="alert alert-' . $message_type . '" style="
+        padding: 15px; margin: 15px 0; border-radius: 8px; 
+        color: #fff; font-weight: bold; background-color: ' .
+        ($message_type == 'success' ? '#28a745' : ($message_type == 'error' ? '#dc3545' : '#17a2b8')) . ';">';
+    echo $message;
+    echo '</div></div>';
+}
+// =================================================================
 ?>
-
-<style>
-    /* Hapus properti warna/shadow yang bertentangan dengan Dark Mode dari inline style */
-
-    .post-card {
-        display: flex;
-        /* background, box-shadow DIHAPUS */
-        border-radius: 12px;
-        margin-bottom: 20px;
-        overflow: hidden;
-    }
-
-    .post-user-info {
-        width: 180px;
-        /* background, border-right DIHAPUS */
-        padding: 20px;
-        text-align: center;
-        flex-shrink: 0;
-    }
-
-    /* GAYA AVATAR YANG PENTING - TETAPKAN STYLE BERIKUT */
-    .post-avatar {
-        width: 80px;
-        height: 80px;
-        border-radius: 50%;
-        object-fit: cover;
-        border: 3px solid #ff8fab;
-        margin-bottom: 10px;
-        background-color: #eee;
-    }
-
-    .post-content {
-        flex-grow: 1;
-        padding: 20px 25px;
-    }
-
-    .post-meta {
-        color: #999;
-        font-size: 0.9em;
-        margin-bottom: 15px;
-        /* border-bottom DIHAPUS */
-        padding-bottom: 10px;
-    }
-
-    .post-body {
-        line-height: 1.6;
-        /* color DIHAPUS */
-    }
-</style>
 
 <main class="forum-page">
     <div class="container">
@@ -96,12 +93,13 @@ include 'header.php';
             // AWAL KODE DINAMIS UNTUK MENAMPILKAN SEMUA POSTINGAN
             // ==================================================================
             try {
+                // *** PENTING: Mengganti u.id menjadi u.id_users di semua klausa JOIN dan SELECT ***
                 $sql = "SELECT 
-                            p.content, p.created_at,
-                            u.id AS user_id, u.username, u.avatar_url,
-                            (SELECT COUNT(*) FROM forum_posts WHERE user_id = u.id) AS user_post_count
+                            p.id AS post_id, p.content, p.created_at,
+                            u.id_users AS user_id, u.username, u.avatar_url,
+                            (SELECT COUNT(*) FROM forum_posts WHERE user_id = u.id_users) AS user_post_count
                         FROM forum_posts p
-                        JOIN users u ON p.user_id = u.id
+                        JOIN users u ON p.user_id = u.id_users
                         WHERE p.topic_id = ?
                         ORDER BY p.created_at ASC";
 
@@ -114,7 +112,7 @@ include 'header.php';
                             ? $post['avatar_url']
                             : 'https://via.placeholder.com/80?text=User';
             ?>
-                        <div class="post-card">
+                        <div class="post-card" id="post-<?php echo $post['post_id']; ?>">
                             <div class="post-user-info">
                                 <img src="<?php echo htmlspecialchars($avatar_src); ?>" alt="<?php echo htmlspecialchars($post['username']); ?>" class="post-avatar">
 
@@ -126,7 +124,30 @@ include 'header.php';
                             </div>
                             <div class="post-content">
                                 <div class="post-meta">
-                                    <i class="far fa-clock"></i> <?php echo date('d M Y, H:i', strtotime($post['created_at'])); ?>
+                                    <span class="post-timestamp"><i class="far fa-clock"></i> <?php echo date('d M Y, H:i', strtotime($post['created_at'])); ?></span>
+
+                                    <?php
+                                    // *** LOGIC TOMBOL EDIT DAN HAPUS ***
+                                    // Cek apakah user sudah login DAN user_id post sama dengan user_id session
+                                    if (isset($_SESSION['user_id']) && $_SESSION['user_id'] == $post['user_id']):
+                                    ?>
+                                        <span class="post-actions">
+                                            <button
+                                                onclick="openEditModal(<?php echo $post['post_id']; ?>, '<?php echo htmlspecialchars(addslashes($post['content'])); ?>')"
+                                                class="btn-action btn-edit"
+                                                title="Edit Postingan">
+                                                <i class="fas fa-edit"></i> Edit
+                                            </button>
+
+                                            <a
+                                                href="delete_post.php?id=<?php echo $post['post_id']; ?>&topic=<?php echo $topic_id; ?>"
+                                                onclick="return confirm('Apakah Anda yakin ingin menghapus postingan ini?')"
+                                                class="btn-action btn-delete"
+                                                title="Hapus Postingan">
+                                                <i class="fas fa-trash"></i> Hapus
+                                            </a>
+                                        </span>
+                                    <?php endif; ?>
                                 </div>
                                 <div class="post-body">
                                     <?php echo nl2br(htmlspecialchars($post['content'])); ?>
@@ -139,7 +160,8 @@ include 'header.php';
                     echo "<p>Topik ini belum memiliki balasan.</p>";
                 }
             } catch (Exception $e) {
-                echo "<p class='error'>Error memuat topik: " . $e->getMessage() . "</p>";
+                // Sekarang menampilkan error SQL yang lebih jelas
+                echo "<p class='error'>Error memuat topik: " . htmlspecialchars($e->getMessage()) . "</p>";
             }
             // ==================================================================
             // AKHIR KODE DINAMIS
@@ -153,7 +175,7 @@ include 'header.php';
                 <form action="post_reply.php" method="POST">
                     <textarea name="content" rows="6" placeholder="Tulis balasan Anda di sini..." required></textarea>
                     <input type="hidden" name="topic_id" value="<?php echo $topic_id; ?>">
-                    <button type="submit" class="btn-primary" style="border: none; padding: 10px 25px; font-size: 16px; cursor: pointer;">
+                    <button type="submit" class="btn-primary">
                         Kirim Balasan
                     </button>
                 </form>
@@ -166,6 +188,69 @@ include 'header.php';
 
     </div>
 </main>
+
+<div id="editModal" class="modal-overlay">
+    <div class="modal-content-box">
+        <span onclick="closeEditModal()" class="modal-close-btn">&times;</span>
+        <h3><i class="fas fa-edit"></i> Edit Postingan Anda</h3>
+        <form action="edit_post.php" method="POST">
+            <input type="hidden" name="post_id" id="edit-post-id">
+            <input type="hidden" name="topic_id" value="<?php echo $topic_id; ?>">
+            <textarea name="content" id="edit-content" required></textarea>
+            <button type="submit" class="btn-primary">Simpan Perubahan</button>
+        </form>
+    </div>
+</div>
+
+<script>
+    const editModal = document.getElementById('editModal');
+    const editContent = document.getElementById('edit-content');
+
+    function openEditModal(postId, currentContent) {
+        // Isi field input di modal
+        document.getElementById('edit-post-id').value = postId;
+
+        // Membersihkan HTML entities untuk display di textarea
+        const tempDiv = document.createElement('div');
+        tempDiv.innerHTML = currentContent;
+        editContent.value = tempDiv.innerText;
+
+        // Tampilkan modal dengan menambahkan class 'active'
+        editModal.classList.add('active');
+    }
+
+    function closeEditModal() {
+        // Sembunyikan modal dengan menghapus class 'active'
+        editModal.classList.remove('active');
+    }
+
+    // Tutup modal jika user klik tombol close (X) atau di luar kotak modal
+    window.onclick = function(event) {
+        if (event.target == editModal) {
+            closeEditModal();
+        }
+    }
+
+    // *** SCRIPT AUTODISMISS ALERT BARU ***
+    window.onload = function() {
+        const alertElement = document.getElementById('auto-dismiss-alert');
+        if (alertElement) {
+            // Setelah 5000 milidetik (5 detik), sembunyikan notifikasi
+            setTimeout(function() {
+                // Tambahkan transisi fade out
+                alertElement.style.transition = 'opacity 1s ease';
+                alertElement.style.opacity = '0';
+
+                // Hapus elemen dari DOM setelah fade out selesai (1 detik)
+                setTimeout(function() {
+                    alertElement.style.display = 'none';
+                    alertElement.remove();
+                }, 1000);
+
+            }, 5000); // 5 detik
+        }
+    };
+</script>
 
 <?php
 // 5. Panggil "Kaki" Halaman

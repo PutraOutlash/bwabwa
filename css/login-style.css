@@ -1,4 +1,9 @@
 /* login-style.css */
+
+/* ------------------------------------- */
+/* 1. Reset Dasar & Kontainer Utama */
+/* ------------------------------------- */
+
 body {
     margin: 0;
     font-family: 'Poppins', sans-serif;
@@ -6,23 +11,42 @@ body {
     color: #333;
 }
 
+/* Menggunakan Flexbox untuk tata letak 2 kolom, mengisi 100% tinggi layar */
 .login-container {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
+    display: flex;
     min-height: 100vh;
+    width: 100%;
+    /* Memastikan konten di tengah vertikal */
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    box-sizing: border-box;
+    /* Memastikan padding tidak menyebabkan scroll */
 }
 
-/* Kolom Kiri */
+/* ------------------------------------- */
+/* 2. Kolom Kiri (Branding & Ilustrasi) */
+/* ------------------------------------- */
+
 .login-left {
     padding: 40px 60px;
     display: flex;
     flex-direction: column;
+    /* Mendistribusikan ruang kosong antar elemen (logo, tagline, ilustrasi) */
     justify-content: space-between;
+    /* Mengambil sisa ruang yang tersedia, bisa disesuaikan */
+    flex: 1;
+    height: 100%;
+    /* Hapus margin jika ada */
+    margin-right: 0;
 }
 
 .login-header {
     font-weight: 600;
     font-size: 20px;
+    display: flex;
+    /* Untuk menyejajarkan logo dan ikon (jika ada) */
+    align-items: center;
 }
 
 .login-intro h1 {
@@ -43,71 +67,52 @@ body {
     color: #666;
 }
 
-.create-account {
-    margin-top: 40px;
+/* CSS untuk Ilustrasi Baru */
+.login-illustration-container {
+    margin-top: 20px;
+    padding: 0;
+    text-align: center;
+    /* Penting: Hapus padding 20px dari sini agar gambar bisa lebih lebar */
 }
 
-.create-account p {
-    margin-bottom: 5px;
-}
-
-.create-account a {
-    color: #333;
-    text-decoration: none;
-    border-bottom: 1px solid #333;
-    padding-bottom: 3px;
-    font-weight: 600;
-}
-
-.about-us-card {
-    position: relative;
-    border-radius: 20px;
-    overflow: hidden;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-}
-
-.about-us-card img {
-    width: 100%;
+.login-illustration-container img {
+    max-width: 90%;
+    height: auto;
+    /* Nilai yang disesuaikan untuk membesarkan gambar */
+    max-height: 350px;
+    width: 500px;
+    object-fit: contain;
     display: block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
-.about-us-card .about-us-text {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    padding: 20px;
-    background: rgba(255, 255, 255, 0.8);
-    backdrop-filter: blur(5px);
-}
+/* ------------------------------------- */
+/* 3. Kolom Kanan (Formulir Login) */
+/* ------------------------------------- */
 
-.about-us-card h3 {
-    margin: 0 0 5px 0;
-}
-
-.about-us-card p {
-    margin: 0;
-    font-size: 14px;
-}
-
-/* Kolom Kanan */
 .login-right {
     background-image: url('images/pregnant-woman.jpg');
-    /* Ganti dengan gambar Anda */
     background-size: cover;
     background-position: center;
     display: flex;
+    /* Penting: Setel flex agar kolom kanan bisa mengambil ruang yang sama */
+    flex: 1;
     align-items: center;
     justify-content: center;
+    /* Hapus height: 100% yang duplikat */
 }
 
 .login-form-box {
-    background: rgba(255, 255, 255, 0.85);
+    background: rgba(255, 255, 255, 0.95);
+    /* Sedikit lebih solid agar form jelas */
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     padding: 40px;
     border-radius: 20px;
     width: 380px;
+    /* Batas tinggi yang disesuaikan agar pas di layar tanpa scroll */
+    max-height: 550px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
 
@@ -123,29 +128,47 @@ body {
     font-weight: 500;
 }
 
+/* PENTING: Perbaikan Input Field (Menggunakan kotak penuh, disarankan) */
 .login-form-box input {
     width: 100%;
-    background: none;
-    border: none;
-    border-bottom: 1px solid #999;
-    padding: 10px 0;
+    padding: 12px;
+    /* Ditingkatkan dari 10px 0 */
     margin-bottom: 25px;
     font-size: 16px;
+
+    /* Gaya input field kotak penuh */
+    background: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    /* Sudut sedikit melengkung */
+    transition: border-color 0.3s;
+
+    /* Menghapus gaya lama (border-bottom) */
+    border-bottom: none;
 }
 
 .login-form-box input:focus {
     outline: none;
-    border-bottom-color: #E57399;
+    border-color: #E57399;
+    /* Border pink saat fokus */
+    box-shadow: 0 0 0 2px rgba(229, 115, 153, 0.2);
 }
 
 .login-form-box .forgot-password {
     display: block;
     text-align: right;
-    font-size: 12px;
+    font-size: 14px;
+    /* Sedikit dibesarkan dari 12px agar lebih mudah diklik */
     color: #666;
     text-decoration: none;
-    margin-top: -15px;
-    margin-bottom: 30px;
+    margin-top: -10px;
+    /* Disesuaikan dengan padding input baru */
+    margin-bottom: 25px;
+    transition: color 0.3s;
+}
+
+.login-form-box .forgot-password:hover {
+    color: #E57399;
 }
 
 .btn-login {
@@ -158,4 +181,25 @@ body {
     font-size: 16px;
     font-weight: 600;
     cursor: pointer;
+    transition: background-color 0.3s;
 }
+
+.btn-login:hover {
+    background-color: #E57399;
+}
+
+/* Link Pendaftaran (buat akun) */
+.create-account-link p a {
+    color: #E57399;
+    /* Menggunakan warna pink brand untuk menonjol */
+    text-decoration: none;
+    font-weight: 600;
+}
+
+/* ------------------------------------- */
+/* DIHAPUS: CSS untuk elemen lama/duplikasi */
+/* ------------------------------------- */
+
+/* Dihapus: .login-container (grid lama) */
+/* Dihapus: .about-us-card, .create-account (elemen HTML lama) */
+/* Dihapus: Duplikasi .login-container, .login-left, .login-right, .login-illustration-container img */
