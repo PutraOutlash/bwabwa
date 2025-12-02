@@ -4,13 +4,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
-// KONEKSI DATABASE
-// Mencari db.php dengan beberapa cara agar aman
-if (file_exists(__DIR__ . '/db.php')) {
-    include_once __DIR__ . '/db.php';
-} elseif (file_exists(__DIR__ . '/../db.php')) {
-    include_once __DIR__ . '/../db.php';
-}
+include_once '../config/db_connect.php';
 
 $username = $_SESSION['username'] ?? 'Guest';
 $current_page = basename($_SERVER['PHP_SELF']);
@@ -249,8 +243,7 @@ $BASE_URL = '/bloombelly';
                     <a href="profil.php" class="btn-profil"><i class="fas fa-user-circle"></i> Profil</a>
                     <a href="logout.php" class="btn-secondary">Logout</a>
                 <?php else: ?>
-                    <a href="login.php" class="btn-secondary">Sign In</a>
-                    <a href="register.php" class="btn-primary">Sign Up</a>
+                    <a href="login.php" class="btn-secondary">Login</a>
                 <?php endif; ?>
                 <button id="darkModeToggle" class="theme-btn" aria-label="Ubah Tema"><i id="theme-icon" class="fas fa-sun"></i></button>
             </div>

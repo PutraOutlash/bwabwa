@@ -1,6 +1,6 @@
 <?php
 session_start();
-include 'db.php'; // Pastikan koneksi DB dipanggil
+include '../config/db_connect.php'; // Pastikan koneksi DB dipanggil
 
 // 1. Cek apakah user sudah login
 if (!isset($_SESSION['user_id'])) {

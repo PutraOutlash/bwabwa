@@ -1,6 +1,6 @@
 <?php
 session_start(); // Pastikan session dimulai untuk mengambil $_SESSION['user_id']
-include 'db.php'; // Panggil koneksi DB secara manual
+include '../config/db_connect.php'; // Panggil koneksi DB secara manual
 
 // 1. Ambil dan validasi ID Topik dari URL
 if (!isset($_GET['id']) || !is_numeric($_GET['id'])) {

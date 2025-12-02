@@ -75,7 +75,10 @@ $pageCSS = ['../css/footer_style.css', '../css/login-style.css'];
                     <input type="text" id="username" name="username" required>
 
                     <label for="password" data-key="login_password">Password</label>
-                    <input type="password" id="password" name="password" required>
+                    <div class="password-input-container">
+                        <input type="password" id="password" name="password" required>
+                        <i class="fas fa-eye-slash toggle-password" id="togglePassword"></i>
+                    </div>
                     <button type="submit" class="btn-login" data-key="login_button">Login</button>
 
 

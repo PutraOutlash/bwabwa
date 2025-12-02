@@ -3,7 +3,7 @@
 
 // 1. KONEKSI & OTENTIKASI
 try {
-    include_once __DIR__ . '/db.php';
+    include_once '../config/db_connect.php';
 } catch (Exception $e) {
     // Lanjut dulu
 }

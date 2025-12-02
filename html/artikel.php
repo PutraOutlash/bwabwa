@@ -5,9 +5,11 @@ $pageTitle = "Artikel - BloomBelly";
 $pageCSS = ["../css/artikel-style.css"];
 
 try {
-    include_once 'db.php';
+    // KONEKSI BARU DENGAN PATH YANG BENAR
+    include '../config/db_connect.php';
 } catch (Exception $e) {
-    // Lanjut dulu
+    // Tampilkan pesan error koneksi ke user atau log error
+    die("Gagal memuat koneksi database.");
 }
 
 include 'header.php';

@@ -4,7 +4,7 @@
 // 1. KONEKSI DATABASE
 try {
     // Pastikan db.php ada di folder yang sama (include 'db.php')
-    include_once 'db.php';
+    include_once '../config/db_connect.php';
     $pdo_available = isset($pdo); // Cek ketersediaan $pdo
 } catch (Exception $e) {
     // Tangani jika koneksi DB gagal

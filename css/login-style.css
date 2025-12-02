@@ -11,17 +11,14 @@ body {
     color: #333;
 }
 
-/* Menggunakan Flexbox untuk tata letak 2 kolom, mengisi 100% tinggi layar */
 .login-container {
     display: flex;
     min-height: 100vh;
     width: 100%;
-    /* Memastikan konten di tengah vertikal */
     align-items: center;
     justify-content: center;
     padding: 20px;
     box-sizing: border-box;
-    /* Memastikan padding tidak menyebabkan scroll */
 }
 
 /* ------------------------------------- */
@@ -32,12 +29,9 @@ body {
     padding: 40px 60px;
     display: flex;
     flex-direction: column;
-    /* Mendistribusikan ruang kosong antar elemen (logo, tagline, ilustrasi) */
     justify-content: space-between;
-    /* Mengambil sisa ruang yang tersedia, bisa disesuaikan */
     flex: 1;
     height: 100%;
-    /* Hapus margin jika ada */
     margin-right: 0;
 }
 
@@ -45,7 +39,6 @@ body {
     font-weight: 600;
     font-size: 20px;
     display: flex;
-    /* Untuk menyejajarkan logo dan ikon (jika ada) */
     align-items: center;
 }
 
@@ -67,18 +60,15 @@ body {
     color: #666;
 }
 
-/* CSS untuk Ilustrasi Baru */
 .login-illustration-container {
     margin-top: 20px;
     padding: 0;
     text-align: center;
-    /* Penting: Hapus padding 20px dari sini agar gambar bisa lebih lebar */
 }
 
 .login-illustration-container img {
     max-width: 90%;
     height: auto;
-    /* Nilai yang disesuaikan untuk membesarkan gambar */
     max-height: 350px;
     width: 500px;
     object-fit: contain;
@@ -96,22 +86,18 @@ body {
     background-size: cover;
     background-position: center;
     display: flex;
-    /* Penting: Setel flex agar kolom kanan bisa mengambil ruang yang sama */
     flex: 1;
     align-items: center;
     justify-content: center;
-    /* Hapus height: 100% yang duplikat */
 }
 
 .login-form-box {
     background: rgba(255, 255, 255, 0.95);
-    /* Sedikit lebih solid agar form jelas */
     backdrop-filter: blur(15px);
     -webkit-backdrop-filter: blur(15px);
     padding: 40px;
     border-radius: 20px;
     width: 380px;
-    /* Batas tinggi yang disesuaikan agar pas di layar tanpa scroll */
     max-height: 550px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
 }
@@ -128,29 +114,30 @@ body {
     font-weight: 500;
 }
 
-/* PENTING: Perbaikan Input Field (Menggunakan kotak penuh, disarankan) */
+/* 🔑 PERBAIKAN PENTING DI SINI: Input Field Global */
 .login-form-box input {
+    /* Setel box-sizing agar padding tidak menambah lebar elemen */
+    box-sizing: border-box;
+
+    /* Gunakan 100% agar mengisi lebar container (tanpa melebihi) */
     width: 100%;
     padding: 12px;
-    /* Ditingkatkan dari 10px 0 */
-    margin-bottom: 25px;
     font-size: 16px;
-
-    /* Gaya input field kotak penuh */
     background: #f8f8f8;
     border: 1px solid #ddd;
     border-radius: 8px;
-    /* Sudut sedikit melengkung */
     transition: border-color 0.3s;
-
-    /* Menghapus gaya lama (border-bottom) */
     border-bottom: none;
+}
+
+/* Mengatur margin bottom untuk input username agar tetap memiliki jarak yang sama */
+.login-form-box input:not([type="password"]) {
+    margin-bottom: 25px;
 }
 
 .login-form-box input:focus {
     outline: none;
     border-color: #E57399;
-    /* Border pink saat fokus */
     box-shadow: 0 0 0 2px rgba(229, 115, 153, 0.2);
 }
 
@@ -158,11 +145,9 @@ body {
     display: block;
     text-align: right;
     font-size: 14px;
-    /* Sedikit dibesarkan dari 12px agar lebih mudah diklik */
     color: #666;
     text-decoration: none;
     margin-top: -10px;
-    /* Disesuaikan dengan padding input baru */
     margin-bottom: 25px;
     transition: color 0.3s;
 }
@@ -188,18 +173,46 @@ body {
     background-color: #E57399;
 }
 
-/* Link Pendaftaran (buat akun) */
 .create-account-link p a {
     color: #E57399;
-    /* Menggunakan warna pink brand untuk menonjol */
     text-decoration: none;
     font-weight: 600;
 }
 
-/* ------------------------------------- */
-/* DIHAPUS: CSS untuk elemen lama/duplikasi */
-/* ------------------------------------- */
 
-/* Dihapus: .login-container (grid lama) */
-/* Dihapus: .about-us-card, .create-account (elemen HTML lama) */
-/* Dihapus: Duplikasi .login-container, .login-left, .login-right, .login-illustration-container img */
+/* ---------------------------------------------------- */
+/* 🔑 PERBAIKAN UTAMA: STYLING TOGGLE PASSWORD ICON */
+/* ---------------------------------------------------- */
+
+/* 1. Container untuk membungkus input dan ikon */
+.password-input-container {
+    position: relative;
+    /* Jarak bawah dipindahkan ke sini */
+    margin-bottom: 25px;
+}
+
+/* 2. Style untuk input password */
+.password-input-container input {
+    /* Hapus margin bawah di input password itu sendiri */
+    margin-bottom: 0;
+    /* Atur padding kanan agar ikon tidak menutupi teks */
+    padding-right: 40px;
+}
+
+
+/* 3. Style untuk ikon mata */
+.toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    /* Jarak dari sisi kanan input */
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #a8a8a8;
+    font-size: 1.1em;
+    transition: color 0.2s;
+}
+
+.toggle-password:hover {
+    color: #555;
+}
