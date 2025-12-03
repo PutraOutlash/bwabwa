@@ -3,7 +3,7 @@
 
 // 1. Mulai session dan panggil koneksi database
 session_start();
-include 'db.php';
+include '../config/db_connect.php';
 
 // 2. Cek apakah pengguna sudah login
 if (!isset($_SESSION['user_id'])) {

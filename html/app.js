@@ -64,4 +64,31 @@ document.addEventListener('DOMContentLoaded', (event) => {
     });
   });
 
-});
+
+  // =======================================================
+  // 🔑 BAGIAN 3: KODE UNTUK TOGGLE PASSWORD ICON
+  // (Tambahkan kode ini di bagian akhir 'DOMContentLoaded')
+  // =======================================================
+
+  const togglePassword = document.getElementById('togglePassword');
+  const passwordField = document.getElementById('password');
+
+  // Pastikan elemen ada di halaman (hanya muncul di login.php)
+  if (togglePassword && passwordField) {
+    togglePassword.addEventListener('click', function (e) {
+      // Dapatkan tipe saat ini ('password' atau 'text')
+      const currentType = passwordField.getAttribute('type');
+
+      // Tentukan tipe baru
+      const newType = currentType === 'password' ? 'text' : 'password';
+
+      // Atur tipe input baru
+      passwordField.setAttribute('type', newType);
+
+      // Ubah ikon Font Awesome: fa-eye-slash (tertutup) <-> fa-eye (terbuka)
+      this.classList.toggle('fa-eye-slash');
+      this.classList.toggle('fa-eye');
+    });
+  }
+
+}); // Akhir dari document.addEventListener('DOMContentLoaded', ...)

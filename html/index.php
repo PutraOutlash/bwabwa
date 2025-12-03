@@ -4,7 +4,7 @@ $pageTitle = "BloomBelly - Teman Setia Kehamilan Bunda";
 // Kita gunakan CSS khusus agar gaya halaman ini tidak mengganggu yang lain
 $pageCSS = ["../css/home-style.css"];
 try {
-    include_once __DIR__ . '/db.php';
+    include_once '../config/db_connect.php';
 } catch (Exception $e) {
 }
 include 'header.php';
@@ -15,7 +15,15 @@ include 'header.php';
     <section class="hero-section animate-on-scroll">
         <div class="container hero-content">
             <div class="hero-text">
-                <h1>Halo Bunda, <span class="highlight"><?php echo htmlspecialchars($username); ?>!</span></h1>
+                <?php
+                // Logika BARU: Tampilkan nama user jika login, atau string kosong jika Guest.
+                // Diasumsikan variabel $username ada dari header.php (isinya bisa 'Guest' atau nama user)
+                $isLoggedIn = (isset($username) && $username !== '' && $username !== 'Guest');
+
+                // Jika sudah login, tambahkan koma dan namanya dengan highlight. Jika tidak, string kosong.
+                $greetingSuffix = $isLoggedIn ? ', <span class="highlight">' . htmlspecialchars($username) . '</span>' : '';
+                ?>
+                <h1>Halo Bunda<?php echo $greetingSuffix; ?>!</h1>
                 <p class="hero-subtitle">
                     Selamat datang di BloomBelly. Kami siap menemani setiap langkah indah perjalanan kehamilan Bunda dengan informasi terpercaya dan komunitas yang suportif.
                 </p>
@@ -62,14 +70,6 @@ include 'header.php';
                         <h4>Perkiraan Lahir:</h4>
                         <div class="result-date" id="hplDate">-</div>
                         <p class="disclaimer">*Hasil ini hanya perkiraan. Selalu konsultasikan dengan dokter atau bidan.</p>
-                    </div>
-
-                    <div id="loginPrompt" class="calc-result" style="display: none; border-color: #ffc2d1;">
-                        <h4 style="color: #ff8fab;">Login Diperlukan</h4>
-                        <div class="result-date" style="font-size: 1.1rem; font-weight: 500; color: #555; line-height: 1.6;">
-                            Silakan <a href="login.php" style="color: #ff8fab; text-decoration: underline; font-weight: 600;">login atau daftar</a>
-                            terlebih dahulu untuk melihat hasil perhitungan HPL.
-                        </div>
                     </div>
 
                 </div>
@@ -119,43 +119,30 @@ include 'header.php';
 </main>
 
 <script>
-    // Variabel untuk cek status login
-    const isLoggedIn = <?php echo (isset($username) && $username !== 'Guest' && $username !== '') ? 'true' : 'false'; ?>;
+    // Tidak ada lagi variabel isLoggedIn karena kalkulator kini bebas diakses
 
     document.addEventListener('DOMContentLoaded', () => {
         // --- LOGIKA KALKULATOR ---
         const hplForm = document.getElementById('hplForm');
         const calcResult = document.getElementById('calcResult');
         const hplDateElem = document.getElementById('hplDate');
-        const loginPrompt = document.getElementById('loginPrompt');
+        // loginPrompt tidak lagi digunakan
 
         if (hplForm) {
             hplForm.addEventListener('submit', (e) => {
                 e.preventDefault();
 
-                // Sembunyikan semua pesan dulu
+                // Sembunyikan pesan hasil sebelumnya
                 calcResult.style.display = 'none';
-                loginPrompt.style.display = 'none';
 
-                // Cek status login
-                if (!isLoggedIn) {
-                    loginPrompt.style.display = 'block';
-                    loginPrompt.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'nearest'
-                    });
-                    return;
-                }
-
-                // JIKA SUDAH LOGIN
+                // JALANKAN PERHITUNGAN UNTUK SEMUA ORANG
                 const hpht = new Date(document.getElementById('hpht').value);
 
                 if (isNaN(hpht.getTime())) return;
 
-                // Rumus Naegele (Tanpa input siklus, diasumsikan standar 28 hari)
-                // Rumus: HPHT + 7 hari - 3 bulan + 1 tahun
+                // Rumus Naegele (diasumsikan standar 28 hari): HPHT + 7 hari - 3 bulan + 1 tahun
                 let hpl = new Date(hpht);
-                hpl.setDate(hpl.getDate() + 7); // Cukup tambah 7 hari
+                hpl.setDate(hpl.getDate() + 7);
                 hpl.setMonth(hpl.getMonth() - 3);
                 hpl.setFullYear(hpl.getFullYear() + 1);
 

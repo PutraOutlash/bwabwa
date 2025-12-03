@@ -10,7 +10,7 @@ $pageCSS = ["../css/forum-style.css?v=" . time()];
 // 2. KONEKSI DATABASE
 try {
     // Menggunakan include_once './db.php'; karena file db.php ada di folder yang sama
-    include_once 'db.php';
+    include_once '../config/db_connect.php';
     $pdo_available = true;
 } catch (Exception $e) {
     // Jika koneksi gagal, set $pdo_available menjadi false

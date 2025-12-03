@@ -12,7 +12,7 @@ include 'header.php';
 
 // 2. Koneksi Database
 // Menggunakan require_once 'db.php'; karena file ini di folder yang sama
-require_once 'db.php';
+require_once '../config/db_connect.php';
 
 // 3. Keamanan & Variabel
 if (!isset($_SESSION['user_id'])) {
