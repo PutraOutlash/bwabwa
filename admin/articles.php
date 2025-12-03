@@ -56,7 +56,10 @@ $articles = $stmt->fetchAll();
         --color-draft: #ffc107;
         --color-deleted: #dc3545;
         --color-muted: #6c757d;
+<<<<<<< HEAD
         --color-view: #17a2b8; /* Warna untuk tombol view */
+=======
+>>>>>>> 04496df43217f219ce325033a6ce208b8ee5c1f2
         --table-header-bg: #f8f9fa;
 
         /* Warna Latar Belakang Samar untuk Kartu Statistik */
@@ -174,6 +177,7 @@ $articles = $stmt->fetchAll();
         height: 38px;
         border-radius: 8px;
         box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+<<<<<<< HEAD
         display: inline-flex;
         align-items: center;
         justify-content: center;
@@ -216,6 +220,8 @@ $articles = $stmt->fetchAll();
         background-color: #c82333;
         border-color: #bd2130;
         color: white;
+=======
+>>>>>>> 04496df43217f219ce325033a6ce208b8ee5c1f2
     }
 
     /* Style untuk Badge Status */
@@ -233,6 +239,7 @@ $articles = $stmt->fetchAll();
     .table-articles tbody tr:last-child td {
         border-bottom: none;
     }
+<<<<<<< HEAD
     
     /* Article Title Detail */
     .article-title-detail {
@@ -251,6 +258,8 @@ $articles = $stmt->fetchAll();
         display: block;
         color: #6c757d;
     }
+=======
+>>>>>>> 04496df43217f219ce325033a6ce208b8ee5c1f2
 </style>
 
 <div class="row mb-4 g-4">
@@ -325,17 +334,30 @@ $articles = $stmt->fetchAll();
         <table class="table table-articles align-middle mb-0">
             <thead>
                 <tr>
+<<<<<<< HEAD
                     <th scope="col" style="width: 35%;">Article Detail</th>
                     <th scope="col" style="width: 15%;">Author</th>
                     <th scope="col" style="width: 12%;">Date Created</th>
                     <th scope="col" style="width: 10%;">Status</th>
                     <th scope="col" style="width: 20%;">Actions</th>
+=======
+                    <th scope="col" style="width: 40%;">Article Detail</th>
+                    <th scope="col" style="width: 15%;">Author</th>
+                    <th scope="col" style="width: 15%;">Date Created</th>
+                    <th scope="col" style="width: 15%;">Status</th>
+                    <th scope="col" style="width: 15%;">Actions</th>
+>>>>>>> 04496df43217f219ce325033a6ce208b8ee5c1f2
                 </tr>
             </thead>
             <tbody>
                 <?php foreach ($articles as $article): ?>
+<<<<<<< HEAD
                     <tr>
                         <td class="article-title-detail" onclick="window.location='article_detail.php?id=<?php echo $article['id_articles']; ?>'">
+=======
+                    <tr onclick="window.location='article_edit.php?id=<?php echo $article['id_articles']; ?>'">
+                        <td class="article-title-detail">
+>>>>>>> 04496df43217f219ce325033a6ce208b8ee5c1f2
                             <strong class="text-dark"><?php echo htmlspecialchars($article['title']); ?></strong>
                             <small class="text-muted"><?php echo htmlspecialchars($article['short_description']); ?></small>
                         </td>
@@ -357,6 +379,7 @@ $articles = $stmt->fetchAll();
                             </span>
                         </td>
                         <td>
+<<<<<<< HEAD
                             <div class="d-flex gap-2">
                                 <!-- Tombol View/Detail -->
                                 <a href="article_detail.php?id=<?php echo $article['id_articles']; ?>" 
@@ -383,6 +406,17 @@ $articles = $stmt->fetchAll();
                                     </button>
                                 </form>
                             </div>
+=======
+                            <a href="article_edit.php?id=<?php echo $article['id_articles']; ?>" class="btn btn-sm btn-info text-white btn-action me-2" title="Edit Article" onclick="event.stopPropagation();">
+                                <i class="fas fa-pen"></i>
+                            </a>
+                            <form method="POST" action="article_delete.php" style="display:inline-block;" onclick="event.stopPropagation();">
+                                <input type="hidden" name="id" value="<?php echo $article['id_articles']; ?>">
+                                <button type="submit" class="btn btn-sm btn-danger btn-action" title="Delete Article" onclick="return confirm('Yakin ingin menghapus artikel: <?php echo htmlspecialchars($article['title']); ?>?');">
+                                    <i class="fas fa-trash-alt"></i>
+                                </button>
+                            </form>
+>>>>>>> 04496df43217f219ce325033a6ce208b8ee5c1f2
                         </td>
                     </tr>
                 <?php endforeach; ?>

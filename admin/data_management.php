@@ -20,7 +20,11 @@ if (isset($_GET['success']) && $_GET['success'] == 'nutrisi_added') {
 } elseif (isset($_GET['success']) && $_GET['success'] == 'nutrisi_updated') {
     $success_message = 'Data Nutrisi berhasil diperbarui. ✨';
 } elseif (isset($_GET['success']) && $_GET['success'] == 'nutrisi_deleted') {
+<<<<<<< HEAD
     $success_message = 'Data Nutrisi berhasil dihapus. 🗑';
+=======
+    $success_message = 'Data Nutrisi berhasil dihapus. 🗑️';
+>>>>>>> 04496df43217f219ce325033a6ce208b8ee5c1f2
 }
 // Tambahkan handling success message untuk Perkembangan
 elseif (isset($_GET['success']) && $_GET['success'] == 'perkembangan_added') {
@@ -63,7 +67,11 @@ $all_minggu = $pdo->query("SELECT DISTINCT minggu_ke FROM nutrisi ORDER BY mingg
 try {
     // === PERBAIKAN 1: NAMA TABEL HARUS 'perkembangan' ===
     // === PERBAIKAN 2: NAMA KOLOM HARUS 'ukuran_bayi' & 'perkembangan_terbaru' ===
+<<<<<<< HEAD
     // Catatan: Karena ukuran_bayi diisi gabungan Berat dan Panjang di file create, kita tampilkan saja satu kolom ini.
+=======
+    // Catatan: Karena `ukuran_bayi` diisi gabungan Berat dan Panjang di file create, kita tampilkan saja satu kolom ini.
+>>>>>>> 04496df43217f219ce325033a6ce208b8ee5c1f2
     // Jika Anda butuh Berat dan Panjang terpisah di tabel ini, struktur DB harus diubah.
     $sql_perkembangan = "SELECT id_perkembangan, minggu_ke, ukuran_bayi, perkembangan_terbaru, tips, hal_dihindari FROM perkembangan ORDER BY minggu_ke ASC";
     $stmt_perkembangan = $pdo->query($sql_perkembangan);

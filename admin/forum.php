@@ -12,7 +12,11 @@ $admin_email = $_SESSION['email'] ?? 'admin@bloombelly.com';
 // Variabel untuk pesan sukses jika ada (setelah delete, dll)
 $success_message = '';
 if (isset($_GET['success']) && $_GET['success'] == 'topic_deleted') {
+<<<<<<< HEAD
     $success_message = 'Topik forum berhasil dihapus! 🗑';
+=======
+    $success_message = 'Topik forum berhasil dihapus! 🗑️';
+>>>>>>> 04496df43217f219ce325033a6ce208b8ee5c1f2
 }
 
 // --- Query untuk Mengambil Daftar Topik Forum ---
